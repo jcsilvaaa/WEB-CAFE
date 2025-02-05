@@ -1,0 +1,51 @@
+
+
+.container {
+    background: #d6c5aabe;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    max-width: 800px;
+    
+    margin: 40px auto 40px auto;
+    padding: 100px;
+    
+    
+}
+.sidebar {
+    width: 250px;
+    border-right: 2px solid #ddd;
+    padding: 20px;
+}
+.sidebar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+    border: 2px solid #ddd;
+}
+.sidebar button {
+    display: block;
+    margin: 10px auto;
+    padding: 5px 30px;
+    cursor: pointer;
+}
+.tabs {
+    padding: 20px;
+    flex-grow: 1;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
