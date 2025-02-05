@@ -30,7 +30,7 @@ header .logo h1 {
 header nav ul {
     list-style: none;
     display: flex;
-    align-items: center; /* Align items vertically */
+    align-items: center;
 }
 
 header nav ul li {
@@ -44,26 +44,17 @@ header nav ul li a {
     font-weight: 500;
 }
 
-header nav ul li.user-icon {
-    margin-left: 20px; /* Add spacing between Sign Up and the user icon */
-}
-
-header nav ul li.user-icon a {
-    display: block; /* Ensures the anchor is block level to encompass the image */
-}
-
 header nav ul li.user-icon img {
-    width: 30px; /* Adjust the size of the image */
+    width: 30px;
     height: 30px;
-    border-radius: 50%; /* Optional: to make the icon round */
+    border-radius: 50%;
     object-fit: cover;
-    cursor: pointer; /* Makes the icon clickable */
-    transition: transform 0.3s ease; /* Smooth scaling effect */
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-/* Hover effect for the user icon */
 header nav ul li.user-icon img:hover {
-    transform: scale(1.1); /* Slightly enlarge the image on hover */
+    transform: scale(1.1);
 }
 
 /* Hero Section */
@@ -78,11 +69,9 @@ header nav ul li.user-icon img:hover {
     text-align: center;
     color: white;
     position: relative;
-    font-family: 'Playfair Display', serif;
     padding: 20px;
 }
 
-/* Hero Text Centering and Styling */
 .hero-text {
     background: #3a2d22b4;
     padding: 20px 40px;
@@ -93,7 +82,6 @@ header nav ul li.user-icon img:hover {
 .hero-text h2 {
     font-size: 3rem;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
 .hero-text p {
@@ -106,20 +94,15 @@ header nav ul li.user-icon img:hover {
     text-align: center;
     padding: 60px 0;
     background-color: #b6977d;
-    font-family: 'Poppins', sans-serif;
 }
 
 .branches-section h2 {
     font-size: 2.8rem;
     color: white;
-    margin-bottom: 20px;
-    font-weight: 600;
-    font-family: 'Playfair Display', serif;
 }
 
 .branches-section p {
     font-size: 1.2rem;
-    margin-bottom: 30px;
     color: white;
 }
 
@@ -137,13 +120,8 @@ header nav ul li.user-icon img:hover {
     cursor: pointer;
     border-radius: 10px;
     transition: transform 0.3s ease;
-    font-family: 'Poppins', sans-serif;
     background-size: cover;
     background-position: center;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 200px;
     height: 100px;
 }
@@ -152,25 +130,44 @@ header nav ul li.user-icon img:hover {
     transform: scale(1.05);
 }
 
-/* Background images for each branch */
-#manila {
-    background-image: url('Manila.jpg');
+/* Branch Descriptions Section */
+.branches-description {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #e0d4c1;
 }
 
-#quezon {
-    background-image: url('Quezon City.jpg');
+.branches-description h2 {
+    font-size: 2.5rem;
+    color: #3a2d22;
 }
 
-#rizal {
-    background-image: url('Rizal.jpg');
+.branch-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-#tagaytay {
-    background-image: url('Tagaytay.jpg');
+.branch-details {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    width: 100%;
 }
 
-#davao {
-    background-image: url('Davao.jpg');
+.branch-details h3 {
+    font-size: 1.8rem;
+    color: #3a2d22;
+}
+
+.branch-details p {
+    font-size: 1.1rem;
+    color: #4e4e4e;
 }
 
 /* Footer */
@@ -179,16 +176,10 @@ footer {
     color: white;
     text-align: center;
     padding: 20px;
-    font-family: 'Poppins', sans-serif;
 }
 
 footer a {
     color: white;
     text-decoration: none;
     margin: 0 10px;
-    font-weight: 500;
-}
-
-footer a:hover {
-    text-decoration: underline;
 }
