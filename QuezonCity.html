@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quezon City Branch - Café Delight</title>
+    <link rel="stylesheet" href="Manila.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Café Delight</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="Homepage.html">Home</a></li>
+                <li><a href="Branches.html">Branches</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="branch-container">
+        <div class="branch-description">
+            <h2>Quezon City Branch</h2>
+            <p>
+                Welcome to Café Delight’s Quezon City branch! Our café is a vibrant and cozy space known for its artsy ambiance and handcrafted coffee selections. Whether you’re looking for a peaceful workspace or a lively hangout, our QC branch has the perfect atmosphere for you.
+            </p>
+            <p>
+                Enjoy live acoustic nights, freshly brewed coffee, and a diverse menu of delicious pastries and light meals. With spacious seating, free Wi-Fi, and a warm, inviting vibe, Café Delight in Quezon City is the ultimate destination for coffee lovers and creatives alike.
+            </p>
+        </div>
+
+        <div class="slideshow-container">
+            <div class="slide fade">
+                <img src="QC.jpg" alt="Quezon City Branch Image 1">
+            </div>
+            <div class="slide fade">
+                <img src="QC1.jpg" alt="Quezon City Branch Image 2">
+            </div>
+            <div class="slide fade">
+                <img src="QC2.jpg" alt="Quezon City Branch Image 3">
+            </div>
+        </div>
+    </section>
+
+    <section class="review-section">
+        <h2>Leave a Review</h2>
+        <textarea placeholder="Write your review here..."></textarea>
+        <button>Submit</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
+        <a href="#">Login</a> | <a href="#">Sign Up</a>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000);
+        }
+        showSlides();
+    </script>
+</body>
+</html>

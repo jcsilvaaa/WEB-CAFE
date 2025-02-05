@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizal Branch - Café Delight</title>
+    <link rel="stylesheet" href="Manila.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Café Delight</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="Homepage.html">Home</a></li>
+                <li><a href="Branches.html">Branches</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="branch-container">
+        <div class="branch-description">
+            <h2>Rizal Branch</h2>
+            <p>
+                Escape the city and experience nature at Café Delight’s Rizal branch. Nestled in the scenic landscapes of Rizal, our café offers a peaceful retreat where you can enjoy great coffee while being surrounded by lush greenery.
+            </p>
+            <p>
+                Our outdoor seating and relaxing ambiance make it the perfect spot to unwind, study, or catch up with friends. Savor locally sourced coffee beans, homemade pastries, and a menu inspired by the freshness of the province.
+            </p>
+        </div>
+
+        <div class="slideshow-container">
+            <div class="slide fade">
+                <img src="Rizal3.jpg" alt="Rizal Branch Image 1">
+            </div>
+            <div class="slide fade">
+                <img src="Rizal1.jpg" alt="Rizal Branch Image 2">
+            </div>
+            <div class="slide fade">
+                <img src="Rizal2.jpg" alt="Rizal Branch Image 3">
+            </div>
+        </div>
+    </section>
+
+    <section class="review-section">
+        <h2>Leave a Review</h2>
+        <textarea placeholder="Write your review here..."></textarea>
+        <button>Submit</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
+        <a href="#">Login</a> | <a href="#">Sign Up</a>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000);
+        }
+        showSlides();
+    </script>
+</body>
+</html>
