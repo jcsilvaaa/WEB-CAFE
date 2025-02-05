@@ -1,3 +1,4 @@
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -89,11 +90,32 @@ header nav ul li.user-icon img:hover {
     font-style: italic;
 }
 
+/* History Section */
+.history-description {
+    text-align: center;
+    padding: 40px 20px; /* Reduced padding to make it more compact */
+    background-color: #c2a87e;
+}
+
+.history-description h2 {
+    font-size: 2.2rem; /* Slightly smaller font size */
+    color: #3a2d22;
+}
+
+.history-info {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #4e4e4e;
+    text-align: left;
+}
+
 /* Branches Section */
 .branches-section {
     text-align: center;
-    padding: 60px 0;
-    background-color: #b6977d;
+    padding: 60px 20px;
+    background-color: #c2a87e;
 }
 
 .branches-section h2 {
@@ -130,44 +152,54 @@ header nav ul li.user-icon img:hover {
     transform: scale(1.05);
 }
 
-/* Branch Descriptions Section */
-.branches-description {
+/* Featured Product Section */
+.featured-product {
     text-align: center;
     padding: 60px 20px;
-    background-color: #e0d4c1;
+    background-color: #f8f4e3; /* Soft background color */
 }
 
-.branches-description h2 {
+.featured-product h2 {
     font-size: 2.5rem;
     color: #3a2d22;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif; /* Elegant font for the heading */
 }
 
-.branch-info {
+.featured-product-content {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
-.branch-details {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
+.featured-product-image-container {
+    position: relative;
     width: 100%;
+    max-width: 400px; /* Adjusted for responsiveness */
+    height: auto;
+    border-radius: 20px; /* Rounded corners for the image */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    overflow: hidden; /* Ensures that the image does not spill outside the container */
 }
 
-.branch-details h3 {
-    font-size: 1.8rem;
-    color: #3a2d22;
+.featured-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the full image is shown without cropping */
 }
 
-.branch-details p {
-    font-size: 1.1rem;
+.featured-product-description {
+    max-width: 500px;
+    text-align: left;
+    padding: 20px;
+}
+
+.featured-product-description p {
+    font-size: 1.2rem;
     color: #4e4e4e;
+    line-height: 1.6;
 }
 
 /* Footer */
