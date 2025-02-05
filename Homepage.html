@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Delight</title>
+    <title>Café Delight - Home</title>
     <link rel="stylesheet" href="Homepage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -13,32 +14,41 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#login">Login</a></li>
-                <li><a href="#signup">Sign Up</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#branches">Branches</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Sign Up</a></li>
+                <li class="user-icon">
+                    <a href="#"> <!-- Link to where you want to navigate -->
+                        <img src="User.jpg" alt="User Icon" />
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
 
-    <section id="home" class="hero">
+    <section class="hero">
         <div class="hero-text">
             <h2>Welcome to Café Delight!</h2>
-            <p>Your favorite place for coffee, food, and relaxation.</p>
+            <p>Honest reviews. Exceptional service. Find the best café experience near you.</p>
         </div>
     </section>
 
-    <section id="menu" class="menu-section">
-        <h2>Our Menu</h2>
-        <p>Explore our wide range of beverages, snacks, and meals designed to delight your taste buds.</p>
-        <button><a href="#">View Full Menu</a></button>
+    <section class="branches-section" id="branches">
+        <h2>Our Branches</h2>
+        <p>Read customer reviews and experiences from our different locations.</p>
+        <div class="branches-list">
+            <button class="branch" style="background-image: url('Manila.jpg');">Manila</button>
+            <button class="branch" style="background-image: url('QC.jpg');">Quezon City</button>
+            <button class="branch" style="background-image: url('Rizal.jpg');">Rizal</button>
+            <button class="branch" style="background-image: url('Tagaytay.jpg');">Tagaytay</button>
+            <button class="branch" style="background-image: url('Davao.jpg');">Davao</button>
+        </div>
     </section>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
-            <p><a href="#login">Login</a> | <a href="#signup">Sign Up</a></p>
-        </div>
+        <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
+        <a href="#">Login</a> | <a href="#">Sign Up</a>
     </footer>
 </body>
 </html>
