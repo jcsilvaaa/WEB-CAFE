@@ -71,7 +71,6 @@
         showSlides();
     </script>
 
-        <!-- ========== REVIEW SYSTEM HTML ========== -->
         <div class="review-system-container">
             <!-- Header -->
             <div class="review-system-header">
@@ -139,7 +138,6 @@
       
             <!-- Existing Reviews -->
             <div class="review-list">
-              <!-- data-owner="false" means no edit/delete buttons -->
               <div class="review-item" data-rating="5" data-owner="false">
                 <h3>TE</h3>
                 <div class="star-rating">★★★★★</div>
@@ -166,7 +164,6 @@
                 </div>
               </div>
       
-              <!-- data-owner="true" shows edit/delete buttons -->
               <div class="review-item" data-rating="1" data-owner="true">
                 <h3>JL</h3>
                 <div class="star-rating">★☆☆☆☆</div>
@@ -229,9 +226,7 @@
             </div>
           </div>
       
-          <!-- ========== REVIEW SYSTEM SCRIPT ========== -->
           <script>
-            // ========== FILTER BY STAR RATING ==========
             const filterSelect = document.getElementById('star-filter');
             const reviewItems = document.querySelectorAll('.review-item');
       
@@ -251,7 +246,6 @@
               });
             });
       
-            // ========== HELPFUL / UNHELPFUL ==========
             document.querySelectorAll('.review-item').forEach((review) => {
               const helpfulBtn = review.querySelector('.helpful-btn');
               const unhelpfulBtn = review.querySelector('.unhelpful-btn');
@@ -268,7 +262,6 @@
               });
             });
       
-            // ========== EDIT / DELETE FOR REVIEW OWNER ==========
             reviewItems.forEach((item) => {
               const isOwner = item.getAttribute('data-owner') === 'true';
               const actions = item.querySelector('.review-actions');
@@ -283,7 +276,6 @@
                 const reviewTextP = reviewItem.querySelector('p');
                 const originalText = reviewTextP.textContent;
       
-                // Replace the text with an edit form
                 reviewTextP.innerHTML = `
                   <textarea class="edit-textarea">${originalText}</textarea>
                   <button class="save-edit-btn">Save</button>
@@ -313,7 +305,6 @@
               });
             });
       
-            // ========== CREATE REVIEW (FRONT-END DEMO) ==========
             const createReviewForm = document.getElementById('create-review-form');
             createReviewForm.addEventListener('submit', (e) => {
               e.preventDefault();
@@ -326,12 +317,11 @@
                 alert('Please fill out all required fields.');
                 return;
               }
-      
-              // Create a new DOM element for the review
+    
               const newReview = document.createElement('div');
               newReview.classList.add('review-item');
               newReview.setAttribute('data-rating', rating.value);
-              newReview.setAttribute('data-owner', 'true'); // new reviews are "owned" by user
+              newReview.setAttribute('data-owner', 'true'); 
       
               let stars = '';
               for (let i = 1; i <= 5; i++) {
@@ -358,7 +348,6 @@
                 </div>
               `;
       
-              // If files were uploaded, list their names
               if (mediaFiles.length > 0) {
                 const fileList = document.createElement('div');
                 fileList.style.marginTop = '10px';
@@ -372,13 +361,10 @@
                 newReview.appendChild(fileList);
               }
       
-              // Insert the new review at the top of .review-list
               document.querySelector('.review-list').prepend(newReview);
       
-              // Reset form
               createReviewForm.reset();
       
-              // Re-apply logic to the newly added review
               attachHelpfulLogic(newReview);
               attachOwnerLogic(newReview);
             });
@@ -406,7 +392,6 @@
                 actions.style.display = 'none';
               }
       
-              // Edit
               const editBtn = review.querySelector('.edit-btn');
               if (editBtn) {
                 editBtn.addEventListener('click', () => {
@@ -431,7 +416,6 @@
                 });
               }
       
-              // Delete
               const deleteBtn = review.querySelector('.delete-btn');
               if (deleteBtn) {
                 deleteBtn.addEventListener('click', () => {

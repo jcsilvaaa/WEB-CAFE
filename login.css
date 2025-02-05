@@ -179,8 +179,8 @@ header nav ul li.user-icon img:hover {
 /* Remember Me */
 .rememberme {
     display: flex;
-    align-items: center; /* Align checkbox and label */
-    gap: 10px; /* Add spacing between checkbox and label */
+    align-items: center; 
+    gap: 10px; 
     margin-top: 5px;
     float: right;
     width: -200px;

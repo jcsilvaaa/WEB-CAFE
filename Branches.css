@@ -128,18 +128,18 @@ nav ul li a {
 
 /* Remove color change and underline on hover for navigation links */
 nav ul li a:hover {
-    color: inherit;  /* No color change */
-    text-decoration: none;  /* No underline */
+    color: inherit;  
+    text-decoration: none;  
 }
 
 /* Remove default link styling for the branches section */
 a {
-    text-decoration: none; /* Remove underline */
-    color: inherit; /* Make the link color inherit from its parent */
+    text-decoration: none; 
+    color: inherit; 
 }
 
 a:hover {
-    color: #000000; /* Optional: Change color on hover */
+    color: #000000; 
 }
 
 .branches-title {

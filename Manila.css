@@ -383,17 +383,17 @@ footer {
       }
       .rating-input {
         display: inline-block;
-        direction: rtl; /* So the first star is on the right */
+        direction: rtl; 
       }
       .rating-input input[type="radio"] {
-        display: none; /* Hide the actual radio buttons */
+        display: none; 
       }
       .rating-input label {
         font-size: 1.5rem;
         color: #ccc;
         cursor: pointer;
       }
-      /* When a radio is checked, all labels after it (to the left) should be gold */
+      
       .rating-input input[type="radio"]:checked ~ label {
         color: gold;
       }
@@ -420,7 +420,6 @@ footer {
         margin-top: 5px;
       }
 
-      /* Simple style for the in-place edit form */
       .edit-textarea {
         width: 100%;
         box-sizing: border-box;
@@ -441,8 +440,6 @@ footer {
       .cancel-edit-btn:hover {
         background-color: #ffd4d4;
       }
-
-      /* ========== REVIEW SYSTEM STYLES ========== */
 
       .review-system-container {
         max-width: 900px;
@@ -635,21 +632,21 @@ footer {
       }
       .rating-input {
         display: inline-block;
-        direction: rtl; /* So the first star is on the right */
+        direction: rtl; 
       }
       .rating-input input[type="radio"] {
-        display: none; /* Hide the actual radio buttons */
+        display: none; 
       }
       .rating-input label {
         font-size: 1.5rem;
         color: #ccc;
         cursor: pointer;
       }
-      /* When a radio is checked, all labels after it (to the left) should be gold */
+    
       .rating-input input[type="radio"]:checked ~ label {
         color: gold;
       }
-      /* Hover effect on stars */
+    
       .rating-input label:hover,
       .rating-input label:hover ~ label {
         color: gold;
@@ -672,7 +669,6 @@ footer {
         margin-top: 5px;
       }
 
-      /* Simple style for the in-place edit form */
       .edit-textarea {
         width: 100%;
         box-sizing: border-box;

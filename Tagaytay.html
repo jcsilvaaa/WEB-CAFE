@@ -70,7 +70,6 @@
         showSlides();
     </script>
 
-    <!-- ========== REVIEW SYSTEM HTML ========== -->
     <div class="review-system-container">
         <!-- Header -->
         <div class="review-system-header">
@@ -138,7 +137,6 @@
 
         <!-- Existing Reviews -->
         <div class="review-list">
-            <!-- data-owner="false" means no edit/delete buttons -->
             <div class="review-item" data-rating="5" data-owner="false">
                 <h3>TE</h3>
                 <div class="star-rating">★★★★★</div>
@@ -165,7 +163,6 @@
                 </div>
             </div>
 
-            <!-- data-owner="true" shows edit/delete buttons -->
             <div class="review-item" data-rating="1" data-owner="true">
                 <h3>JL</h3>
                 <div class="star-rating">★☆☆☆☆</div>
@@ -185,7 +182,7 @@
             </div>
         </div>
 
-        <!-- Create a Review Form -->
+        <!-- Create Review Form -->
         <div class="create-review">
             <h2>Write a Review</h2>
             <form id="create-review-form">
@@ -228,9 +225,7 @@
         </div>
     </div>
 
-    <!-- ========== REVIEW SYSTEM SCRIPT ========== -->
     <script>
-        // ========== FILTER BY STAR RATING ========== 
         const filterSelect = document.getElementById('star-filter');
         const reviewItems = document.querySelectorAll('.review-item');
 
@@ -250,7 +245,6 @@
             });
         });
 
-        // ========== HELPFUL / UNHELPFUL ========== 
         document.querySelectorAll('.review-item').forEach((review) => {
             const helpfulBtn = review.querySelector('.helpful-btn');
             const unhelpfulBtn = review.querySelector('.unhelpful-btn');
@@ -265,7 +259,6 @@
             });
         });
 
-        // ========== EDIT / DELETE ========== 
         document.querySelectorAll('.edit-btn').forEach((editBtn) => {
             editBtn.addEventListener('click', () => {
                 const reviewItem = editBtn.closest('.review-item');

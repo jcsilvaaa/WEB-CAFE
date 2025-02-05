@@ -1,4 +1,4 @@
-/* Global Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -164,12 +164,12 @@ header nav ul li.user-icon img:hover {
 /* History Section */
 .history-description {
     text-align: center;
-    padding: 40px 20px; /* Reduced padding to make it more compact */
+    padding: 40px 20px; 
     background-color: #c2a87e;
 }
 
 .history-description h2 {
-    font-size: 2.2rem; /* Slightly smaller font size */
+    font-size: 2.2rem; 
     color: #3a2d22;
 }
 
@@ -227,14 +227,14 @@ header nav ul li.user-icon img:hover {
 .featured-product {
     text-align: center;
     padding: 60px 20px;
-    background-color: #f8f4e3; /* Soft background color */
+    background-color: #f8f4e3; 
 }
 
 .featured-product h2 {
     font-size: 2.5rem;
     color: #3a2d22;
     margin-bottom: 20px;
-    font-family: 'Playfair Display', serif; /* Elegant font for the heading */
+    font-family: 'Playfair Display', serif; 
 }
 
 .featured-product-content {
@@ -248,17 +248,17 @@ header nav ul li.user-icon img:hover {
 .featured-product-image-container {
     position: relative;
     width: 100%;
-    max-width: 400px; /* Adjusted for responsiveness */
+    max-width: 400px; 
     height: auto;
-    border-radius: 20px; /* Rounded corners for the image */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    overflow: hidden; /* Ensures that the image does not spill outside the container */
+    border-radius: 20px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
 }
 
 .featured-product-image {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ensures the full image is shown without cropping */
+    object-fit: contain; 
 }
 
 .featured-product-description {

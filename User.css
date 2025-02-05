@@ -51,7 +51,7 @@ header nav ul li a {
     display: inline-block;
 }
 
-/* Hide the dropdown by default */
+/* Hide dropdown by default */
 .user-menu .dropdown {
     display: none;
     position: absolute;
@@ -63,7 +63,6 @@ header nav ul li a {
     z-index: 100;
 }
 
-/* Style for dropdown links */
 .user-menu .dropdown li {
     list-style: none;
     padding: 10px;

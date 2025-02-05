@@ -86,11 +86,10 @@
   </div>
 
   <div class="admin-container" id="admin-container">
-    <!-- Reviews will be rendered here by JavaScript -->
   </div>
 
   <script>
-    // SAMPLE REVIEWS (hardcoded for demo; in real usage, fetch from server)
+
     const reviews = [
       {
         id: 1,
@@ -145,17 +144,14 @@
       adminContainer.innerHTML = ""; // Clear previous content
 
       reviews.forEach(review => {
-        // If filter is not 'all', skip any review whose rating doesn't match
         if (selectedFilter !== "all" && review.rating.toString() !== selectedFilter) {
           return;
         }
 
-        // Create a wrapper div
         const reviewDiv = document.createElement("div");
         reviewDiv.className = "review-item";
         reviewDiv.setAttribute("data-id", review.id);
 
-        // Build the inner HTML for the review
         reviewDiv.innerHTML = `
           <div class="review-header">
             <h3>${review.name}</h3>
@@ -169,7 +165,6 @@
           </div>
         `;
 
-        // Create the reply section
         const replySection = document.createElement("div");
         replySection.className = "reply-section";
         replySection.innerHTML = `
@@ -185,17 +180,14 @@
         adminContainer.appendChild(reviewDiv);
       });
 
-      // Attach event listeners to the newly rendered elements
       attachAdminActions();
     }
 
-    // Attach admin actions: Reply, Delete
     function attachAdminActions() {
       document.querySelectorAll(".review-item").forEach(item => {
         const reviewId = parseInt(item.getAttribute("data-id"));
         const reviewData = reviews.find(r => r.id === reviewId);
 
-        // Buttons / sections
         const replyBtn = item.querySelector(".reply-btn");
         const deleteBtn = item.querySelector(".delete-btn");
         const replySection = item.querySelector(".reply-section");
@@ -205,9 +197,8 @@
         const cancelReplyBtn = replyForm.querySelector(".cancel-reply-btn");
         const textarea = replyForm.querySelector("textarea");
 
-        // REPLY
         replyBtn.addEventListener("click", () => {
-          // Show the reply form, pre-fill with existing reply if you want
+         
           replyForm.style.display = "block";
           textarea.value = reviewData.reply;
         });
