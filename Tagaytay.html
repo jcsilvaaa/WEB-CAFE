@@ -10,35 +10,26 @@
 <body>
     <header>
         <div class="logo">
-            <h1>Café Delight</h1>
+            <h1>TasteCheck</h1>
         </div>
         <nav>
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
                 <li><a href="Branches.html">Branches</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Sign Up</a></li>
-                <li class="user-menu">
-                    <a href="#" class="user-icon">
-                        <img src="User.jpg" alt="User Icon" />
-                    </a>
-                    <ul class="dropdown">
-                        <li><a href="User.html">My Profile</a></li>
-                        <li><a href="logout.html">Logout</a></li>
-                    </ul>
-                </li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Sign Up</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="branch-container">
         <div class="branch-description">
-            <h2>Tagaytay Branch</h2>
+            <h2>Amihan Café</h2>
             <p>
-                Welcome to Café Delight's Tagaytay branch! Enjoy the breathtaking view of Taal Volcano while sipping on your favorite coffee. Our café provides a peaceful retreat where you can relax with good company and indulge in delicious pastries and coffee blends.
+                is a breathtaking getaway in Tagaytay, offering a front-row seat to the majestic Taal Volcano. Perched on a scenic ridge, this cozy café lets you enjoy a warm cup of coffee while taking in the cool breeze and stunning panoramic views of Taal Lake.
             </p>
             <p>
-                Whether you're looking for a tranquil escape or a place to catch up with friends, the Tagaytay branch offers the perfect ambiance to make every visit special.
+                Whether you're here for a peaceful morning, a romantic afternoon, or a relaxing sunset, Amihan Café provides the perfect blend of nature’s beauty and rich, locally brewed flavors. Sit back, sip, and savor the view—because great coffee tastes even better with a spectacular backdrop. 
             </p>
         </div>
 
@@ -70,10 +61,11 @@
         showSlides();
     </script>
 
+    <!-- ========== REVIEW SYSTEM HTML ========== -->
     <div class="review-system-container">
         <!-- Header -->
         <div class="review-system-header">
-            <div class="title">Reviews for Tagaytay Branch</div>
+            <div class="title">Reviews for Amihan Café</div>
             <button class="review-btn">Write a review</button>
         </div>
 
@@ -137,6 +129,7 @@
 
         <!-- Existing Reviews -->
         <div class="review-list">
+            <!-- data-owner="false" means no edit/delete buttons -->
             <div class="review-item" data-rating="5" data-owner="false">
                 <h3>TE</h3>
                 <div class="star-rating">★★★★★</div>
@@ -163,6 +156,7 @@
                 </div>
             </div>
 
+            <!-- data-owner="true" shows edit/delete buttons -->
             <div class="review-item" data-rating="1" data-owner="true">
                 <h3>JL</h3>
                 <div class="star-rating">★☆☆☆☆</div>
@@ -182,7 +176,7 @@
             </div>
         </div>
 
-        <!-- Create Review Form -->
+        <!-- Create a Review Form -->
         <div class="create-review">
             <h2>Write a Review</h2>
             <form id="create-review-form">
@@ -225,7 +219,9 @@
         </div>
     </div>
 
+    <!-- ========== REVIEW SYSTEM SCRIPT ========== -->
     <script>
+        // ========== FILTER BY STAR RATING ========== 
         const filterSelect = document.getElementById('star-filter');
         const reviewItems = document.querySelectorAll('.review-item');
 
@@ -245,6 +241,7 @@
             });
         });
 
+        // ========== HELPFUL / UNHELPFUL ========== 
         document.querySelectorAll('.review-item').forEach((review) => {
             const helpfulBtn = review.querySelector('.helpful-btn');
             const unhelpfulBtn = review.querySelector('.unhelpful-btn');
@@ -259,6 +256,7 @@
             });
         });
 
+        // ========== EDIT / DELETE ========== 
         document.querySelectorAll('.edit-btn').forEach((editBtn) => {
             editBtn.addEventListener('click', () => {
                 const reviewItem = editBtn.closest('.review-item');

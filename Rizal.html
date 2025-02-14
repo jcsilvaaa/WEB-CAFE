@@ -10,35 +10,26 @@
 <body>
     <header>
         <div class="logo">
-            <h1>Café Delight</h1>
+            <h1>TasteCheck</h1>
         </div>
         <nav>
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
                 <li><a href="Branches.html">Branches</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Sign Up</a></li>
-                <li class="user-menu">
-                    <a href="#" class="user-icon">
-                        <img src="User.jpg" alt="User Icon" />
-                    </a>
-                    <ul class="dropdown">
-                        <li><a href="User.html">My Profile</a></li>
-                        <li><a href="logout.html">Logout</a></li>
-                    </ul>
-                </li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Sign Up</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="branch-container">
         <div class="branch-description">
-            <h2>Rizal Branch</h2>
+            <h2>Tagpuan Cafe</h2>
             <p>
-                Welcome to Café Delight's Rizal branch! Situated in a peaceful area surrounded by lush trees, this branch offers an amazing overlooking view where you can relax and enjoy nature. Savor our signature coffee blends and freshly baked pastries while taking in the beauty of the natural surroundings.
+                Tagpuan Café is a charming, overlooking café nestled in the scenic landscapes of Rizal, where every visit feels like a homecoming. Inspired by the Filipino spirit of togetherness, it’s the perfect spot to gather with friends, share stories, and enjoy a warm cup of coffee while admiring breathtaking views.
             </p>
             <p>
-                Whether you're here to unwind, work in a tranquil setting, or simply enjoy a cup of coffee with a view, our Rizal branch offers the perfect ambiance with its refreshing green vistas and calm atmosphere.
+                Whether you're savoring a rich kapeng barako at sunrise or indulging in local delicacies at sunset, Tagpuan Café offers a cozy ambiance that feels both nostalgic and inviting—because the best moments are shared over coffee.
             </p>
         </div>
         
@@ -73,13 +64,15 @@
         showSlides();
     </script>
 
+    <!-- ========== REVIEW SYSTEM HTML ========== -->
     <div class="review-system-container">
         <!-- Header -->
         <div class="review-system-header">
-            <div class="title">Reviews for Rizal Branch</div>
+            <div class="title">Reviews for Tagpuan Cafe  </div>
             <button class="review-btn">Write a review</button>
         </div>
 
+        <!-- Overall Rating & Distribution -->
         <div class="review-summary">
             <div class="average-rating">
                 <h2>4.5</h2>
@@ -124,6 +117,7 @@
             </div>
         </div>
 
+        <!-- Filter -->
         <div class="filter">
             <label for="star-filter">Filter by star rating:</label>
             <select id="star-filter" name="star-filter">
@@ -136,6 +130,7 @@
             </select>
         </div>
 
+        <!-- Existing Reviews -->
         <div class="review-list">
             <div class="review-item" data-rating="5" data-owner="false">
                 <h3>JL</h3>
@@ -182,6 +177,7 @@
             </div>
         </div>
 
+        <!-- Create a Review Form -->
         <div class="create-review">
             <h2>Write a Review</h2>
             <form id="create-review-form">
@@ -224,7 +220,9 @@
         </div>
     </div>
 
+    <!-- ========== REVIEW SYSTEM SCRIPT ========== -->
     <script>
+        // Same JavaScript as before
     </script>
 
     <footer>

@@ -10,35 +10,26 @@
 <body>
     <header>
         <div class="logo">
-            <h1>Café Delight</h1>
+            <h1>TasteCheck</h1>
         </div>
         <nav>
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
                 <li><a href="Branches.html">Branches</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Sign Up</a></li>
-                <li class="user-menu">
-                    <a href="#" class="user-icon">
-                        <img src="User.jpg" alt="User Icon" />
-                    </a>
-                    <ul class="dropdown">
-                        <li><a href="User.html">My Profile</a></li>
-                        <li><a href="logout.html">Logout</a></li>
-                    </ul>
-                </li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Sign Up</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="branch-container">
         <div class="branch-description">
-            <h2>Quezon City Branch</h2>
+            <h2>Aurora Café </h2>
             <p>
-                Welcome to Café Delight’s Quezon City branch! Our café is a vibrant and cozy space known for its artsy ambiance and handcrafted coffee selections. Whether you’re looking for a peaceful workspace or a lively hangout, our QC branch has the perfect atmosphere for you.
+                Aurora Café is a hidden gem in the heart of Quezon City, offering a serene escape for coffee lovers and dreamers alike. Inspired by the beauty of the dawn, our café provides a warm and inviting atmosphere where every cup feels like a fresh start.
             </p>
             <p>
-                Enjoy live acoustic nights, freshly brewed coffee, and a diverse menu of delicious pastries and light meals. With spacious seating, free Wi-Fi, and a warm, inviting vibe, Café Delight in Quezon City is the ultimate destination for coffee lovers and creatives alike.
+                Whether you're here to enjoy a quiet morning, get lost in a book, or catch up with friends over handcrafted brews, Aurora Café delivers rich flavors and a cozy ambiance. From velvety lattes to bold espressos, every sip is a reminder that new beginnings start with great coffee. 
             </p>
         </div>
 
@@ -70,10 +61,11 @@
         showSlides();
     </script>
 
+  <!-- ========== REVIEW SYSTEM HTML ========== -->
 <div class="review-system-container">
     <!-- Header -->
     <div class="review-system-header">
-        <div class="title">Reviews for Quezon City Branch</div>
+        <div class="title">Reviews for Aurora Cafe</div>
         <button class="review-btn">Write a review</button>
     </div>
 
@@ -137,6 +129,7 @@
 
     <!-- Existing Reviews -->
     <div class="review-list">
+        <!-- data-owner="false" means no edit/delete buttons -->
         <div class="review-item" data-rating="5" data-owner="false">
             <h3>KM</h3>
             <div class="star-rating">★★★★★</div>
@@ -202,6 +195,7 @@
             </div>
         </div>
 
+        <!-- data-owner="true" shows edit/delete buttons -->
         <div class="review-item" data-rating="5" data-owner="true">
             <h3>JL</h3>
             <div class="star-rating">★★★★★</div>
