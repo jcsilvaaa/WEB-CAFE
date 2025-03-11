@@ -62,5 +62,28 @@
         <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
         <a href="#">Login</a> | <a href="#">Sign Up</a>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get user data from localStorage
+            const user = JSON.parse(localStorage.getItem("user"));
+    
+            if (user) {
+                // Update profile information
+                document.querySelector(".profile-header h2").textContent = user.username;
+                document.querySelector(".profile-header p").textContent = user.description || "No description provided.";
+    
+                // Update profile picture if available
+                if (user.avatar) {
+                    document.querySelector(".profile-img").src = `http://localhost:3000${user.avatar}`;
+                }
+            } else {
+                // Redirect to login page if no user is found
+                alert("Please log in first.");
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+    
 </body>
 </html>
