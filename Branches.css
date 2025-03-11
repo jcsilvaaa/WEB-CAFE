@@ -109,6 +109,26 @@ header nav ul li.user-icon img:hover {
     cursor: pointer;
 }
 
+/* Hover effect */
+.user-menu .dropdown li a:hover {
+    background-color: #e0d4c1;
+}
+
+/* Show dropdown when hovering over the user icon */
+.user-menu:hover .dropdown {
+    display: block;
+}
+
+/* User Icon Styling */
+.user-icon img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+
 
 nav ul {
     list-style-type: none;

@@ -17,17 +17,7 @@
         <nav>
             <ul>
                 <li><a href="homepage.html">Home</a></li>
-                <li><a href="Branches.html">Branches</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li class="user-menu">
-                    <a href="#" class="user-icon">
-                        <img src="User.jpg" alt="User Icon" />
-                    </a>
-                    <ul class="dropdown">
-                        <li><a href="User.html">My Profile</a></li>
-                        <li><a href="logout.html">Logout</a></li>
-                    </ul>
-                </li>
+                <li><a href="Branches.html">Cafe</a></li>
             </ul>
         </nav>
     </header>
@@ -37,10 +27,14 @@
         <h2>Create an Account</h2>
         <p>Join our community and share your café experiences!</p>
 
-        <form action="#" method="POST">
+        <form id="registerForm" enctype="multipart/form-data">
             <!-- Username Input -->
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required placeholder="Enter your username">
+
+            <!-- Email Input -->
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
 
             <!-- Password Input -->
             <label for="password">Password</label>
@@ -62,8 +56,28 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
-        <a href="#">Login</a> | <a href="#">Sign Up</a>
+        <a href="login.html">Login</a> | <a href="#">Sign Up</a>
     </footer>
+
+    <!-- JavaScript for Form Submission -->
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(this);
+            
+            fetch("http://localhost:3000/register", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                window.location.href = "Homepage.html"; // Redirect after success
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
 
 </body>
 </html>

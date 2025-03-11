@@ -11,20 +11,19 @@
 <body>
     <header>
         <div class="logo">
-            <h1>Café Delight</h1>
+            <h1>TasteCheck</h1>
         </div>
         <nav>
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
-                <li><a href="Branches.html">Branches</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="Branches.html">Cafe</a></li>
+                
                 <li class="user-menu">
-                    <a href="#" class="user-icon">
-                        <img src="User.jpg" alt="User Icon" />
-                    </a>
+                    
+                        <img src="User.jpg" alt="User Icon">
                     <ul class="dropdown">
-                        <li><a href="User.html">My Profile</a></li>
-                        <li><a href="logout.html">Logout</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Sign Up</a></li>
                     </ul>
                 </li>
             </ul>
@@ -59,11 +58,12 @@
     <section class="branches-section" id="branches">
         <h2>Featured Branches</h2>
         <div class="branches-list">
-            <button class="branch" style="background-image: url('Manila.jpg');">Manila</button>
-            <button class="branch" style="background-image: url('QC.jpg');">Quezon City</button>
-            <button class="branch" style="background-image: url('Rizal.jpg');">Rizal</button>
-            <button class="branch" style="background-image: url('Tagaytay.jpg');">Tagaytay</button>
-            <button class="branch" style="background-image: url('Davao.jpg');">Davao</button>
+            <button class="branch" style="background-image: url('Manila.jpg');" onclick="window.location.href='Manila.html'">Manila</button>
+            <button class="branch" style="background-image: url('QC.jpg');" onclick="window.location.href='QuezonCity.html'">Quezon City</button>
+            <button class="branch" style="background-image: url('Rizal.jpg');" onclick="window.location.href='Rizal.html'">Rizal</button>
+            <button class="branch" style="background-image: url('Tagaytay.jpg');" onclick="window.location.href='Tagaytay.html'">Tagaytay</button>
+            <button class="branch" style="background-image: url('Davao.jpg');" onclick="window.location.href='Davao.html'">Davao</button>
+        </div>
         </div>
     </section>
 
