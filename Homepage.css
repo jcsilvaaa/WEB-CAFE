@@ -63,6 +63,19 @@ header nav ul li.user-icon img:hover {
     position: relative;
     display: inline-block;
 }
+.user-menu img {
+    width: 35px; /* Reduce width */
+    height: 35px; /* Reduce height */
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.user-menu img:hover {
+    transform: scale(1.1);
+}
+
 
 /* Hide the dropdown by default */
 .user-menu .dropdown {
@@ -101,14 +114,7 @@ header nav ul li.user-icon img:hover {
     display: block;
 }
 
-/* User Icon Styling */
-.user-icon img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-}
+
 
 /* Hover effect */
 .user-menu .dropdown li a:hover {

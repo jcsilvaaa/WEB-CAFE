@@ -20,7 +20,7 @@
                 <!-- User Icon with Dropdown -->
                 <li class="user-menu">
                     <a href="#" class="user-icon">
-                        <img src="User.jpg" alt="User Icon" />
+                        <img id="userAvatar" src="user.jpg" alt="User Profile">
                     </a>
                     <ul class="dropdown" id="user-dropdown"></ul>
                 </li>
@@ -96,22 +96,31 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const userDropdown = document.getElementById("user-dropdown");
+            const userAvatar = document.getElementById("userAvatar");
             const user = JSON.parse(localStorage.getItem("user"));
-      
+
             if (user) {
-                // If logged in, show profile and logout
+                // Update avatar if user has uploaded one
+                if (user.avatar) {
+                    userAvatar.src = user.avatar;
+                } else {
+                    userAvatar.src = "user.jpg"; // Default avatar
+                }
+
+                // Populate dropdown menu
                 userDropdown.innerHTML = `
                     <li><a href="user.html">My Profile</a></li>
                     <li><a href="#" id="logout">Logout</a></li>
                 `;
-      
+
                 // Logout function
                 document.getElementById("logout").addEventListener("click", function () {
                     localStorage.removeItem("user");
+                    userAvatar.src = "user.jpg"; // Reset avatar
                     window.location.href = "logout.html";
                 });
             } else {
-                // If not logged in (or after logout), show login and sign-up
+                // Default dropdown for non-logged-in users
                 userDropdown.innerHTML = `
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Sign Up</a></li>
@@ -119,6 +128,7 @@
             }
         });
     </script>
+    
 
 </body>
 </html>

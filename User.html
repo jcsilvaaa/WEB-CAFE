@@ -18,7 +18,7 @@
                 <li><a href="Branches.html">Branches</a></li>
                 <li class="user-menu">
                     <a href="#" class="user-icon">
-                        <img src="User.jpg" alt="User Icon" />
+                        <img id="userAvatar" src="user.jpg" alt="User Profile">
                     </a>
                     <ul class="dropdown" id="user-dropdown">
                         <!-- This will be updated dynamically -->
@@ -31,7 +31,7 @@
     <section class="profile-section" id="profile">
         <div class="profile-container">
             <div class="profile-header">
-                <img src="User.jpg" alt="User Profile Picture" class="profile-img">
+                <img id="profileImage" src="user.jpg" alt="User Profile Picture" class="profile-img">
                 <h2 id="username">John Doe</h2>
                 <p id="user-description">Coffee Lover | Review Enthusiast</p>
                 <a href="editprofile.html">
@@ -65,6 +65,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const userDropdown = document.getElementById("user-dropdown");
+            const userAvatar = document.getElementById("userAvatar");
+            const profileImage = document.getElementById("profileImage");
             const user = JSON.parse(localStorage.getItem("user"));
 
             if (user) {
@@ -74,7 +76,8 @@
 
                 // Update profile picture if available
                 if (user.avatar) {
-                    document.querySelector(".profile-img").src = `http://localhost:3000${user.avatar}`;
+                    userAvatar.src = `http://localhost:3000${user.avatar}`;
+                    profileImage.src = `http://localhost:3000${user.avatar}`;
                 }
 
                 // Update dropdown menu for logged-in users
@@ -95,6 +98,5 @@
             }
         });
     </script>
-
 </body>
 </html>
