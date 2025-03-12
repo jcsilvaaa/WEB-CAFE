@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Branches - Café Delight</title>
+    <title>Our Branches - TasteCheck</title>
     <link rel="stylesheet" href="Branches.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -15,14 +15,15 @@
         <nav>
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
-                <li><a href="Branches.html">Cafe</a></li>
+            
                 <li><a href="search.html">Search</a></li>
                 <!-- User Icon with Dropdown -->
                 <li class="user-menu">
-                    <img src="User.jpg" alt="User Icon">
-                    <ul class="dropdown">
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Sign Up</a></li>
+                    <a href="#" class="user-icon">
+                        <img src="User.jpg" alt="User Icon" />
+                    </a>
+                    <ul class="dropdown" id="user-dropdown">
+                
                     </ul>
                 </li>
             </ul>
@@ -87,7 +88,34 @@
 
     <footer>
         <p>&copy; 2025 TasteCheck. All Rights Reserved.</p>
-        <a href="login.html">Login</a> | <a href="register.html">Sign Up</a>
+        
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userDropdown = document.getElementById("user-dropdown");
+            const user = JSON.parse(localStorage.getItem("user"));
+      
+            if (user) {
+                // If logged in, show profile and logout
+                userDropdown.innerHTML = `
+                    <li><a href="user.html">My Profile</a></li>
+                    <li><a href="#" id="logout">Logout</a></li>
+                `;
+      
+                // Logout function
+                document.getElementById("logout").addEventListener("click", function () {
+                    localStorage.removeItem("user");
+                    window.location.href = "logout.html";
+                });
+            } else {
+                // If not logged in (or after logout), show login and sign-up
+                userDropdown.innerHTML = `
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Sign Up</a></li>
+                `;
+            }
+        });
+      </script>
 </body>
 </html>

@@ -129,12 +129,6 @@ header nav ul li.user-icon img:hover {
 }
 
 
-
-nav ul {
-    list-style-type: none;
-    margin: 20px 0 0 0;
-}
-
 nav ul li {
     display: inline;
     margin: 0 15px;
