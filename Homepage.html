@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Delight - Home</title>
+    <title>TasteCheck - Home</title>
     <link rel="stylesheet" href="Homepage.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -76,21 +76,21 @@
         document.addEventListener("DOMContentLoaded", function () {
             const userDropdown = document.getElementById("user-dropdown");
             const user = JSON.parse(localStorage.getItem("user"));
-
+    
             if (user) {
                 // If logged in, show profile and logout
                 userDropdown.innerHTML = `
                     <li><a href="user.html">My Profile</a></li>
                     <li><a href="#" id="logout">Logout</a></li>
                 `;
-
+    
                 // Logout function
                 document.getElementById("logout").addEventListener("click", function () {
                     localStorage.removeItem("user");
-                    window.location.href = "login.html";
+                    window.location.href = "logout.html";
                 });
             } else {
-                // If not logged in, show login and sign up
+                // If not logged in (or after logout), show login and sign-up
                 userDropdown.innerHTML = `
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Sign Up</a></li>
@@ -98,6 +98,7 @@
             }
         });
     </script>
+    
 
 </body>
 </html>

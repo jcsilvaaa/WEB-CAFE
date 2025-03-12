@@ -3,42 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Davao Branch - Café Delight</title>
+    <title>Manila Branch - TasteCheck</title>
     <link rel="stylesheet" href="Manila.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-      <header>
-          <div class="logo">
-              <h1>Café Delight</h1>
-          </div>
-          <nav>
-              <ul>
-                  <li><a href="Homepage.html">Home</a></li>
-                  <li><a href="Branches.html">Cafe</a></li>
-                  
-                  
-                  <li class="user-menu">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>TasteCheck</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="Homepage.html">Home</a></li>
+                <li><a href="Branches.html">Cafe</a></li>
+                
+                <li class="user-menu">
                     <a href="#" class="user-icon">
                         <img src="User.jpg" alt="User Icon" />
                     </a>
-                    <ul class="dropdown">
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Sign Up</a></li>
+                    <ul class="dropdown" id="user-dropdown">
+                        <!-- Content will be dynamically generated -->
                     </ul>
                 </li>
-              </ul>
-          </nav>
-      </header>
+            </ul>
+        </nav>
+    </header>
 
     <section class="branch-container">
         <div class="branch-description">
-            <h2>Davao Branch</h2>
+            <h2>Home Brew</h2>
             <p>
-                Welcome to Café Delight's Davao branch! Nestled in the vibrant city of Davao, our café offers a serene escape from the bustling streets. Here, you can enjoy our signature coffee blends, delectable pastries, and a peaceful ambiance perfect for both work and relaxation.
+                Welcome to Home Brew Café is a coffee establishment located in Davao. It offers a variety of iced and hot coffee beverages, as well as classic snacks, allowing customers to enjoy their favorites in a cozy setting.
             </p>
             <p>
-                Whether you're catching up with friends, focusing on work, or simply unwinding, our Davao branch provides a cozy and welcoming space, complete with fast Wi-Fi and a dedicated team to ensure your visit is delightful.
+              Home Brew Café is a cozy and inviting spot where coffee lovers can enjoy expertly brewed drinks in a relaxed atmosphere. With a menu featuring rich espresso blends, handcrafted lattes, and delicious pastries, it’s the perfect place to unwind, catch up with friends, or get some work done. Whether you're a fan of bold black coffee or creamy specialty drinks, Home Brew Café offers something for everyone.
             </p>
         </div>
 
@@ -68,6 +66,32 @@
             setTimeout(showSlides, 3000);
         }
         showSlides();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const userDropdown = document.getElementById("user-dropdown");
+          const user = JSON.parse(localStorage.getItem("user"));
+    
+          if (user) {
+              // If logged in, show profile and logout
+              userDropdown.innerHTML = `
+                  <li><a href="user.html">My Profile</a></li>
+                  <li><a href="#" id="logout">Logout</a></li>
+              `;
+    
+              // Logout function
+              document.getElementById("logout").addEventListener("click", function () {
+                  localStorage.removeItem("user");
+                  window.location.href = "logout.html";
+              });
+          } else {
+              // If not logged in (or after logout), show login and sign-up
+              userDropdown.innerHTML = `
+                  <li><a href="login.html">Login</a></li>
+                  <li><a href="register.html">Sign Up</a></li>
+              `;
+          }
+      });
     </script>
 
         <div class="review-system-container">

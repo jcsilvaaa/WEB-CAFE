@@ -146,6 +146,12 @@ app.put("/update-profile/:id", upload.single("avatar"), async (req, res) => {
     }
 });
 
+// Logout Route (Logs user logout in terminal)
+app.post("/logout", (req, res) => {
+    console.log("🔴 User logged out.");
+    res.json({ message: "✅ Logout successful!" });
+});
+
 
 
 // Start Server

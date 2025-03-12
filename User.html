@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile - Café Delight</title>
+    <title>User Profile - TasteCheck</title>
     <link rel="stylesheet" href="User.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="logo">
-            <h1>Café Delight</h1>
+            <h1>TasteCheck</h1>
         </div>
         <nav>
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
-                <li><a href="Branches.html">Branches</a></li> <!-- Link to branches section on Homepage -->
+                <li><a href="Branches.html">Branches</a></li>
                 <li class="user-menu">
                     <a href="#" class="user-icon">
                         <img src="User.jpg" alt="User Icon" />
                     </a>
-                    <ul class="dropdown">
-                        <li><a href="User.html">My Profile</a></li>
-                        <li><a href="logout.html">Logout</a></li>
+                    <ul class="dropdown" id="user-dropdown">
+                        <!-- This will be updated dynamically -->
                     </ul>
                 </li>
             </ul>
@@ -33,8 +32,8 @@
         <div class="profile-container">
             <div class="profile-header">
                 <img src="User.jpg" alt="User Profile Picture" class="profile-img">
-                <h2>John Doe</h2>
-                <p>Coffee Lover | Review Enthusiast</p>
+                <h2 id="username">John Doe</h2>
+                <p id="user-description">Coffee Lover | Review Enthusiast</p>
                 <a href="editprofile.html">
                     <button class="edit-btn">Edit Profile</button>
                 </a>
@@ -59,31 +58,43 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
-        <a href="#">Login</a> | <a href="#">Sign Up</a>
+        <p>&copy; 2025 TasteCheck. All Rights Reserved.</p>
+        <a href="login.html">Login</a> | <a href="register.html">Sign Up</a>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Get user data from localStorage
+            const userDropdown = document.getElementById("user-dropdown");
             const user = JSON.parse(localStorage.getItem("user"));
-    
+
             if (user) {
-                // Update profile information
-                document.querySelector(".profile-header h2").textContent = user.username;
-                document.querySelector(".profile-header p").textContent = user.description || "No description provided.";
-    
+                // Update profile info
+                document.getElementById("username").textContent = user.username;
+                document.getElementById("user-description").textContent = user.description || "No description provided.";
+
                 // Update profile picture if available
                 if (user.avatar) {
                     document.querySelector(".profile-img").src = `http://localhost:3000${user.avatar}`;
                 }
+
+                // Update dropdown menu for logged-in users
+                userDropdown.innerHTML = `
+                    <li><a href="User.html">My Profile</a></li>
+                    <li><a href="#" id="logout">Logout</a></li>
+                `;
+
+                // Logout functionality
+                document.getElementById("logout").addEventListener("click", function () {
+                    localStorage.removeItem("user");
+                    window.location.href = "logout.html";
+                });
             } else {
-                // Redirect to login page if no user is found
+                // Redirect to login if no user is found
                 alert("Please log in first.");
                 window.location.href = "login.html";
             }
         });
     </script>
-    
+
 </body>
 </html>

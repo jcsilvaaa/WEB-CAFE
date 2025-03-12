@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tagaytay Branch - Café Delight</title>
+    <title>Manila Branch - TasteCheck</title>
     <link rel="stylesheet" href="Manila.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="logo">
-            <h1>Café Delight</h1>
+            <h1>TasteCheck</h1>
         </div>
         <nav>
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
                 <li><a href="Branches.html">Cafe</a></li>
                 
-                
                 <li class="user-menu">
-                  <a href="#" class="user-icon">
-                      <img src="User.jpg" alt="User Icon" />
-                  </a>
-                  <ul class="dropdown">
-                      <li><a href="login.html">Login</a></li>
-                      <li><a href="register.html">Sign Up</a></li>
-                  </ul>
-              </li>
+                    <a href="#" class="user-icon">
+                        <img src="User.jpg" alt="User Icon" />
+                    </a>
+                    <ul class="dropdown" id="user-dropdown">
+                        <!-- Content will be dynamically generated -->
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -69,6 +67,33 @@
         }
         showSlides();
     </script>
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userDropdown = document.getElementById("user-dropdown");
+            const user = JSON.parse(localStorage.getItem("user"));
+      
+            if (user) {
+                // If logged in, show profile and logout
+                userDropdown.innerHTML = `
+                    <li><a href="user.html">My Profile</a></li>
+                    <li><a href="#" id="logout">Logout</a></li>
+                `;
+      
+                // Logout function
+                document.getElementById("logout").addEventListener("click", function () {
+                    localStorage.removeItem("user");
+                    window.location.href = "logout.html";
+                });
+            } else {
+                // If not logged in (or after logout), show login and sign-up
+                userDropdown.innerHTML = `
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Sign Up</a></li>
+                `;
+            }
+        });
+      </script>
+    
 
     <!-- ========== REVIEW SYSTEM HTML ========== -->
     <div class="review-system-container">
