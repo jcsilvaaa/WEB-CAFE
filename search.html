@@ -21,7 +21,7 @@
                 <li class="user-menu">
                     
                         <img src="User.jpg" alt="User Icon">
-                    <ul class="dropdown">
+                        <ul class="dropdown" id="user-dropdown">
                         <li><a href="login.html">Login</a></li>
                         <li><a href="register.html">Sign Up</a></li>
                     </ul>
@@ -44,10 +44,10 @@
         </select>
     </div>
         
-        <div class="search-box">
-            <input type="text" id="search-establishment" placeholder="Search by name or description...">
-            <button>Search</button>
-        </div>
+    <div class="search-box">
+        <input type="text" id="search-establishment" placeholder="Search by name or description...">
+        <button onclick="performSearch()">Search</button>
+    </div>
 
         <div class="search-box">
             <input type="text" id="search-reviews" placeholder="Search reviews by title or content...">
@@ -70,5 +70,41 @@
     <footer>
         <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userDropdown = document.getElementById("user-dropdown");
+            const user = JSON.parse(localStorage.getItem("user"));
+      
+            if (user) {
+                // If logged in, show profile and logout
+                userDropdown.innerHTML = `
+                    <li><a href="user.html">My Profile</a></li>
+                    <li><a href="#" id="logout">Logout</a></li>
+                `;
+      
+                // Logout function
+                document.getElementById("logout").addEventListener("click", function () {
+                    localStorage.removeItem("user");
+                    window.location.href = "logout.html";
+                });
+            } else {
+                // If not logged in (or after logout), show login and sign-up
+                userDropdown.innerHTML = `
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Sign Up</a></li>
+                `;
+            }
+        });
+      </script>
+
+    <script>
+        function performSearch() {
+            let searchQuery = document.getElementById("search-establishment").value.trim();
+            if (searchQuery) {
+                window.location.href = `result.html?query=${encodeURIComponent(searchQuery)}`;
+            }
+        }
+        </script>
 </body>
 </html>
