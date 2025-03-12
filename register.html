@@ -61,22 +61,31 @@
 
     <!-- JavaScript for Form Submission -->
     <script>
-        document.getElementById("registerForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent default form submission
+    document.getElementById("registerForm").addEventListener("submit", async function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-            const formData = new FormData(this);
-            
-            fetch("http://localhost:3000/register", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                window.location.href = "Homepage.html"; // Redirect after success
-            })
-            .catch(error => console.error("Error:", error));
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch("http://localhost:3000/register", {
+            method: "POST",
+            body: formData
         });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message);
+            window.location.href = "Homepage.html"; // Redirect after success
+        } else {
+            alert("❌ Error: " + data.message); // Show error from the server
+        }
+    } catch (error) {
+        console.error("❌ Registration Error:", error);
+        alert("An error occurred. Please try again.");
+    }
+});
+
     </script>
 
 </body>

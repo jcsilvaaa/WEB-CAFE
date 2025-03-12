@@ -18,14 +18,11 @@
             <li><a href="Homepage.html">Home</a></li>
             <li><a href="search.html">Search</a></li>
             <li><a href="Branches.html">Cafe</a></li>
-           
             <li class="user-menu">
                 <a href="#" class="user-icon">
                     <img src="User.jpg" alt="User Icon" />
                 </a>
-                <ul class="dropdown">
-                    
-                </ul>
+                <ul class="dropdown"></ul> <!-- Dropdown gets updated dynamically -->
             </li>
         </ul>
     </nav>
@@ -34,66 +31,78 @@
 <section class="login-container">
     <div class="login-box">
         <h2>Login to Your Account</h2>
-        <form action="#" method="POST">
+        <form id="login-form">  
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-            <button type="submit">Login</button>
-
-            <p class="signup-link">Don't have an account? <a href="register.html">Sign up</a></p>
-
             <div class="rememberme">
-                <label for="remember">Remember_Me </label> 
-                <input type="checkbox" id="rememberme" name="rememberme">
+                <input type="checkbox" id="rememberme" name="rememberme"> 
+                <label for="rememberme">Remember Me</label>
             </div>
+
+            <button type="submit">Login</button>
         </form>
+
+        <p class="signup-link">Don't have an account? <a href="register.html">Sign up</a></p>
     </div>
 </section>
 
 <footer>
     <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
-    <a href="Login.html"></a><a href="#"></a>
 </footer>
 
 <script>
-    document.querySelector("form").addEventListener("submit", async function(event) {
-        event.preventDefault();
-
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        try {
-            const response = await fetch("http://localhost:3000/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password })
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("DOM fully loaded and script running.");
+    
+        // Handle login form submission
+        const loginForm = document.getElementById("login-form");
+    
+        if (loginForm) {
+            loginForm.addEventListener("submit", async function (event) {
+                event.preventDefault(); // Prevent page refresh
+                console.log("Login form submitted");
+    
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+    
+                console.log("Email:", email);
+                console.log("Password:", password);
+    
+                try {
+                    const response = await fetch("http://localhost:3000/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ email, password }),
+                    });
+    
+                    const data = await response.json();
+                    console.log("Response received:", data);
+    
+                    if (response.ok) {
+                        console.log("Login successful!");
+                        localStorage.setItem("user", JSON.stringify(data.user));
+                        window.location.href = "Homepage.html"; // Redirect to homepage
+                    } else {
+                        console.error("Login failed:", data.message);
+                        alert(data.message); // Show error message
+                    }
+                } catch (error) {
+                    console.error("Login error:", error);
+                    alert("An error occurred. Please try again.");
+                }
             });
-
-            const data = await response.json();
-            console.log("Server Response:", data);
-
-            if (response.ok) {
-                alert(data.message);
-
-                // ✅ Save user session in localStorage
-                localStorage.setItem("loggedInUser", JSON.stringify({ 
-                    username: data.username, 
-                    email: data.email 
-                }));
-
-                window.location.href = "Homepage.html"; // Redirect after success
-            } else {
-                alert("❌ " + data.message);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("❌ Server error. Please try again.");
+        } else {
+            console.error("Login form not found.");
         }
     });
-</script>
+    </script>
+    
 
 </body>
 </html>
