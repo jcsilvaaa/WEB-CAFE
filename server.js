@@ -27,7 +27,13 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     description: String,
-    avatar: String
+    avatar: String,
+    // ADDED FIELDS:
+    firstName: String,
+    lastName: String,
+    website: String,
+    facebook: String,
+    twitter: String
 });
 
 const User = mongoose.model("User", userSchema);
@@ -99,14 +105,21 @@ app.post("/login", async (req, res) => {
             avatar: user.avatar
         });
 
-        // Send user data (without password)
+        // Send user data (including some fields if you want)
         res.json({
             message: "✅ Login successful!",
             user: {
+                _id: user._id,             // Make sure we send _id
                 username: user.username,
                 email: user.email,
                 description: user.description,
                 avatar: user.avatar,
+                // Include newly added fields if you want them on the client:
+                firstName: user.firstName || "",
+                lastName: user.lastName || "",
+                website: user.website || "",
+                facebook: user.facebook || "",
+                twitter: user.twitter || ""
             },
         });
     } catch (err) {
@@ -118,14 +131,34 @@ app.post("/login", async (req, res) => {
 app.put("/update-profile/:id", upload.single("avatar"), async (req, res) => {
     try {
         const userId = req.params.id;
-        const { username, email, description, password } = req.body;
-        let updateData = { username, email, description };
+        const {
+            username,
+            email,
+            description,
+            password,
+            firstName,
+            lastName,
+            website,
+            facebook,
+            twitter
+        } = req.body;
+        
+        let updateData = {};
 
-        // If password is provided, hash it before updating
+        // Original fields
+        if (username) updateData.username = username;
+        if (email) updateData.email = email;
+        if (description) updateData.description = description;
         if (password) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-            updateData.password = hashedPassword;
+            updateData.password = password; // no hashing in your code
         }
+
+        // ADDED fields
+        if (firstName) updateData.firstName = firstName;
+        if (lastName) updateData.lastName = lastName;
+        if (website) updateData.website = website;
+        if (facebook) updateData.facebook = facebook;
+        if (twitter) updateData.twitter = twitter;
 
         // If avatar is uploaded, update avatar field
         if (req.file) {
@@ -143,6 +176,33 @@ app.put("/update-profile/:id", upload.single("avatar"), async (req, res) => {
     } catch (error) {
         console.error("❌ Error updating profile:", error);
         res.status(500).json({ message: "❌ Error updating profile." });
+    }
+});
+
+app.put("/change-password/:id", async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const { oldPassword, newPassword } = req.body;
+
+        // Find user by ID
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "❌ User not found." });
+        }
+
+        // Check old password
+        if (user.password !== oldPassword) {
+            return res.status(401).json({ message: "❌ Old password is incorrect." });
+        }
+
+        // Update to new password (plain text, as in your existing code)
+        user.password = newPassword;
+        await user.save();
+
+        res.json({ message: "✅ Password changed successfully!" });
+    } catch (error) {
+        console.error("❌ Error changing password:", error);
+        res.status(500).json({ message: "❌ Error changing password." });
     }
 });
 
