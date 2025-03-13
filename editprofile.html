@@ -39,7 +39,6 @@
         </nav>
     </header>
 
-
     <div class="login-box">
         <div class="container">
             <div class="sidebar">
@@ -47,31 +46,65 @@
                 <button onclick="changePicture()">Change Picture</button>
                 <button class="tab-button active" onclick="openTab(event, 'account')">Account Details</button>
                 <button class="tab-button" onclick="openTab(event, 'security')">Security</button>
-                
             </div>
+
             <div class="tabs">
+                <!-- ACCOUNT TAB (Unchanged except for added Username field) -->
                 <div id="account" class="tab-content active">
                     <h2>Account Settings</h2>
+
                     <label>Email Address</label>
-                    <input type="email" value="Johndoe@gmail.com">
+                    <input type="email" value="Johndoe@gmail.com" id="emailField">
+
+                    <!-- NEW: Username Field -->
+                    <label>Username</label>
+                    <input type="text" value="YourUsername" id="usernameField">
+
                     <label>First Name</label>
-                    <input type="text" value="John">
+                    <input type="text" value="John" id="firstNameField">
+
                     <label>Last Name</label>
-                    <input type="text" value="Doe">
+                    <input type="text" value="Doe" id="lastNameField">
+
                     <label>Short Description</label>
-                    <textarea placeholder="Write a short bio..."></textarea>
+                    <textarea placeholder="Write a short bio..." id="descriptionField"></textarea>
+
                     <label>Website</label>
-                    <input type="url" value="https://Johndoe.net">
+                    <input type="url" value="https://Johndoe.net" id="websiteField">
+
                     <label>Facebook</label>
-                    <input type="url" value="https://www.facebook.com/">
+                    <input type="url" value="https://www.facebook.com/" id="facebookField">
+
                     <label>Twitter</label>
-                    <input type="url" value="https://twitter.com/">
+                    <input type="url" value="https://twitter.com/" id="twitterField">
+
+                    <!-- Button to update the main profile info -->
+                    <button id="saveProfileBtn">Save Profile</button>
+                </div>
+
+                <!-- SECURITY TAB -->
+                <div id="security" class="tab-content">
+                    <h2>Security</h2>
+                    <label>Old Password</label>
+                    <input type="password" id="oldPassword" placeholder="Enter old password">
+
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" placeholder="Enter new password">
+
+                    <label>Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
+
+                    <!-- Button to change the password -->
+                    <button id="changePasswordBtn">Change Password</button>
                 </div>
             </div>
         </div>
     </div>
     
     <script>
+        // ─────────────────────────────────────────────────────────────────
+        // TAB SWITCHING (Unchanged)
+        // ─────────────────────────────────────────────────────────────────
         function openTab(event, tabId) {
             var tabcontent = document.getElementsByClassName("tab-content");
             for (var i = 0; i < tabcontent.length; i++) {
@@ -82,6 +115,107 @@
         function changePicture() {
             alert("Change Profile Picture functionality here.");
         }
+
+        // ─────────────────────────────────────────────────────────────────
+        // ON PAGE LOAD
+        // ─────────────────────────────────────────────────────────────────
+        document.addEventListener("DOMContentLoaded", function () {
+            const user = JSON.parse(localStorage.getItem("user"));
+            if (!user || !user._id) {
+                alert("User not found or not logged in. Redirecting to login.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Pre-fill Account tab fields from localStorage user
+            document.getElementById("emailField").value = user.email || "";
+            document.getElementById("usernameField").value = user.username || "YourUsername";
+            document.getElementById("firstNameField").value = user.firstName || "John";
+            document.getElementById("lastNameField").value = user.lastName || "Doe";
+            document.getElementById("descriptionField").value = user.description || "";
+            document.getElementById("websiteField").value = user.website || "https://Johndoe.net";
+            document.getElementById("facebookField").value = user.facebook || "https://www.facebook.com/";
+            document.getElementById("twitterField").value = user.twitter || "https://twitter.com/";
+
+            // If user has an avatar, display it
+            if (user.avatar) {
+                document.getElementById("profile-picture").src = "http://localhost:3000" + user.avatar;
+            }
+
+            // ─────────────────────────────────────────────────────────────
+            // SAVE PROFILE BUTTON: Calls /update-profile/:id
+            // ─────────────────────────────────────────────────────────────
+            document.getElementById("saveProfileBtn").addEventListener("click", async function () {
+                // Gather updated fields
+                const updatedData = {
+                    email: document.getElementById("emailField").value,
+                    username: document.getElementById("usernameField").value,
+                    description: document.getElementById("descriptionField").value,
+                    firstName: document.getElementById("firstNameField").value,
+                    lastName: document.getElementById("lastNameField").value,
+                    website: document.getElementById("websiteField").value,
+                    facebook: document.getElementById("facebookField").value,
+                    twitter: document.getElementById("twitterField").value
+                };
+
+                try {
+                    const response = await fetch(`http://localhost:3000/update-profile/${user._id}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(updatedData)
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert("✅ Profile updated successfully!");
+                        // Update localStorage user object
+                        localStorage.setItem("user", JSON.stringify(data.user));
+                    } else {
+                        alert("❌ Error: " + data.message);
+                    }
+                } catch (error) {
+                    console.error("❌ Error updating profile:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+
+            // ─────────────────────────────────────────────────────────────
+            // CHANGE PASSWORD BUTTON: Calls /change-password/:id
+            // ─────────────────────────────────────────────────────────────
+            document.getElementById("changePasswordBtn").addEventListener("click", async function () {
+                const oldPassword = document.getElementById("oldPassword").value;
+                const newPassword = document.getElementById("newPassword").value;
+                const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+                // 1) Check if new password & confirm match
+                if (newPassword !== confirmNewPassword) {
+                    alert("New password and confirm password do not match!");
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`http://localhost:3000/change-password/${user._id}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ oldPassword, newPassword })
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert("✅ Password changed successfully!");
+                        // Optionally clear fields
+                        document.getElementById("oldPassword").value = "";
+                        document.getElementById("newPassword").value = "";
+                        document.getElementById("confirmNewPassword").value = "";
+                    } else {
+                        alert("❌ Error: " + data.message);
+                    }
+                } catch (error) {
+                    console.error("❌ Error changing password:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        });
     </script>
 
     <footer>
