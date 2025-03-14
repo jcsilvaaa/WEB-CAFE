@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Café Delight</title>
+    <title>Login - TasteCheck</title>
     <link rel="stylesheet" href="Login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -51,10 +51,22 @@
 </section>
 
 <footer>
-    <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
+    <p>&copy; 2025 TasteCheck. All Rights Reserved.</p>
 </footer>
 
 <script>
+
+function logout() {
+    fetch("http://localhost:3000/logout", { method: "POST" })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);
+            localStorage.removeItem("user");
+            window.location.href = "Homepage.html"; // Redirect to homepage
+        })
+        .catch(error => console.error("❌ Logout error:", error));
+}
+
     document.addEventListener("DOMContentLoaded", function () {
         console.log("DOM fully loaded and script running.");
     

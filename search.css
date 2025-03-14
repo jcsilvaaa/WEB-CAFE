@@ -63,6 +63,7 @@ header nav ul li.user-icon img:hover {
     transform: scale(1.1);
 }
 
+
 /* User Menu Dropdown */
 .user-menu {
     position: relative;
@@ -114,6 +115,15 @@ header nav ul li.user-icon img:hover {
     object-fit: cover;
     cursor: pointer;
 }
+.user-menu img {
+    width: 35px; /* Reduce width */
+    height: 35px; /* Reduce height */
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
 
 
 /* Main Content Wrapper */

@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require("multer");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+
 
 const app = express();
 const PORT = 3000;
@@ -13,7 +12,7 @@ const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key"; // Use env varia
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "http://localhost:5500", credentials: true })); // Allow frontend requests
+app.use(cors({ origin: "http://localhost:3000", credentials: true })); // Allow frontend requests
 app.use("/uploads", express.static("uploads"));
 
 // MongoDB Connection
