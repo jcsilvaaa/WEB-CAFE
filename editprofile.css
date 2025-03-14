@@ -1,3 +1,49 @@
+* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fde0bfda;
+    color: #4e4e4e;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3a2d22;
+    padding: 20px;
+    color: white;
+    font-family: 'Playfair Display', serif;
+}
+
+header .logo h1 {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
 
 header nav ul li.user-icon img {
     width: 30px;
@@ -6,13 +52,10 @@ header nav ul li.user-icon img {
     object-fit: cover;
     cursor: pointer;
     transition: transform 0.3s ease;
+}
 
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f4f4f4;
-        color: #333;
-    }
-
+header nav ul li.user-icon img:hover {
+    transform: scale(1.1);
 }
 
 /* User Menu Dropdown */
@@ -92,6 +135,14 @@ header nav ul li.user-icon img {
     display: block;
     margin: auto;
     border: 2px solid #ddd;
+}
+.user-menu img {
+    width: 35px; /* Reduce width */
+    height: 35px; /* Reduce height */
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 .sidebar button {
     display: block;

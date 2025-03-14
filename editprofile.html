@@ -18,21 +18,17 @@
 <body>
     <header>
         <div class="logo">
-            <h1>Café Delight</h1>
+            <h1>TasteCheck</h1>
         </div>
         <nav>
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
                 <li><a href="Branches.html">Branches</a></li> 
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Sign Up</a></li>
+               
+              
                 <li class="user-menu">
-                    <a href="#" class="user-icon">
-                        <img src="User.jpg" alt="User Icon" />
-                    </a>
-                    <ul class="dropdown">
-                        <li><a href="User.html">My Profile</a></li>
-                        <li><a href="logout.html">Logout</a></li>
+                    <img id="userAvatar" src="user.jpg" alt="User Profile">
+                    <ul class="dropdown" id="user-dropdown">
                     </ul>
                 </li>
             </ul>
@@ -61,10 +57,10 @@
                     <input type="text" value="YourUsername" id="usernameField">
 
                     <label>First Name</label>
-                    <input type="text" value="John" id="firstNameField">
+                    <input type="text" value="" id="firstNameField">
 
                     <label>Last Name</label>
-                    <input type="text" value="Doe" id="lastNameField">
+                    <input type="text" value="" id="lastNameField">
 
                     <label>Short Description</label>
                     <textarea placeholder="Write a short bio..." id="descriptionField"></textarea>
@@ -217,6 +213,41 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const userDropdown = document.getElementById("user-dropdown");
+            const userAvatar = document.getElementById("userAvatar");
+            const user = JSON.parse(localStorage.getItem("user"));
+      
+            if (user) {
+                // Update avatar if user has uploaded one
+                if (user.avatar) {
+                    userAvatar.src = user.avatar;
+                } else {
+                    userAvatar.src = "user.jpg"; // Default avatar
+                }
+      
+                // Populate dropdown menu
+                userDropdown.innerHTML = `
+                    <li><a href="user.html">My Profile</a></li>
+                    <li><a href="#" id="logout">Logout</a></li>
+                `;
+      
+                // Logout function
+                document.getElementById("logout").addEventListener("click", function () {
+                    localStorage.removeItem("user");
+                    userAvatar.src = "user.jpg"; // Reset avatar
+                    window.location.href = "logout.html";
+                });
+            } else {
+                // Default dropdown for non-logged-in users
+                userDropdown.innerHTML = `
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Sign Up</a></li>
+                `;
+            }
+        });
+      </script>
 
     <footer>
         <p>&copy; 2025 Café Delight. All Rights Reserved.</p>
