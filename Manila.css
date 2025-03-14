@@ -307,6 +307,7 @@ footer {
         color: #888;
       }
 
+      
       /* Helpful / Unhelpful */
       .helpful-actions {
         margin-top: 10px;
@@ -333,6 +334,15 @@ footer {
         color: #555;
       }
 
+      .user-menu img {
+        width: 35px; /* Reduce width */
+        height: 35px; /* Reduce height */
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    
       /* Edit / Delete for Owner */
       .review-actions {
         margin-top: 10px;

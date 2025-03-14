@@ -2,43 +2,49 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const multer = require("multer");
-const path = require("path");
 const bcrypt = require("bcrypt");
-
-
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const app = express();
 const PORT = 3000;
+const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key"; // Use env variable for security
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use("/uploads", express.static("uploads")); // Serve uploaded files
+app.use(cors({ origin: "http://localhost:5500", credentials: true })); // Allow frontend requests
+app.use("/uploads", express.static("uploads"));
 
 // MongoDB Connection
 mongoose.connect("mongodb://localhost:27017/webcafe", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("✅ Connected to MongoDB"))
     .catch(err => console.log("❌ MongoDB Connection Error:", err));
 
-// User Schema
+// =========================== USER SCHEMA ===========================
 const userSchema = new mongoose.Schema({
     username: String,
-    email: String,
+    email: { type: String, unique: true },
     password: String,
     description: String,
-    avatar: String,
-    // ADDED FIELDS:
-    firstName: String,
-    lastName: String,
-    website: String,
-    facebook: String,
-    twitter: String
+    avatar: String
 });
 
 const User = mongoose.model("User", userSchema);
 
-// Multer Setup for File Uploads
+// =========================== REVIEW SCHEMA (WITH BRANCH) ===========================
+const reviewSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    username: String,
+    branch: String,
+    rating: Number,
+    text: String,
+    date: { type: String, default: new Date().toLocaleDateString() }
+});
+
+const Review = mongoose.model("Review", reviewSchema);
+
+// =========================== FILE UPLOAD (MULTER) ===========================
 const storage = multer.diskStorage({
     destination: "./uploads",
     filename: (req, file, cb) => {
@@ -48,171 +54,133 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// =========================== AUTH ROUTES ===========================
+
+// Register
 app.post("/register", upload.single("avatar"), async (req, res) => {
     try {
         const { username, email, password, description } = req.body;
         const avatar = req.file ? "/uploads/" + req.file.filename : null;
 
-        console.log("📥 Received Registration Data:", { username, email, password, description, avatar });
-
-        // Check if email already exists
         const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            console.log("❌ Email already exists.");
-            return res.status(400).json({ message: "❌ Email already registered." });
-        }
+        if (existingUser) return res.status(400).json({ message: "❌ Email already registered." });
 
-        // Save new user
-        const newUser = new User({ username, email, password, description, avatar });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({ username, email, password: hashedPassword, description, avatar });
         await newUser.save();
-
-        console.log("✅ User Registered Successfully:", newUser);
 
         res.json({ message: "✅ User registered successfully!" });
     } catch (err) {
-        console.error("❌ Error registering user:", err);
-        res.status(500).json({ message: "Error registering user." });
+        res.status(500).json({ message: "❌ Error registering user." });
     }
 });
 
-
-
-// Login Route
+// Login
 app.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
-
-        // Find user by email
         const user = await User.findOne({ email });
 
-        if (!user) {
-            console.log("❌ User not found.");
-            return res.status(401).json({ message: "❌ User not found." });
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(401).json({ message: "❌ Invalid credentials." });
         }
 
-        // Check password (⚠️ No hashing yet)
-        if (user.password !== password) {
-            console.log("❌ Incorrect password.");
-            return res.status(401).json({ message: "❌ Incorrect password." });
-        }
+        const token = jwt.sign({ userId: user._id, username: user.username }, SECRET_KEY, { expiresIn: "7d" });
 
-        // Log user details in the terminal
-        console.log("✅ Login successful!");
-        console.log("User Details:", {
-            username: user.username,
-            email: user.email,
-            description: user.description,
-            avatar: user.avatar
-        });
-
-        // Send user data (including some fields if you want)
-        res.json({
-            message: "✅ Login successful!",
-            user: {
-                _id: user._id,             // Make sure we send _id
-                username: user.username,
-                email: user.email,
-                description: user.description,
-                avatar: user.avatar,
-                // Include newly added fields if you want them on the client:
-                firstName: user.firstName || "",
-                lastName: user.lastName || "",
-                website: user.website || "",
-                facebook: user.facebook || "",
-                twitter: user.twitter || ""
-            },
-        });
+        res.json({ message: "✅ Login successful!", user, token });
     } catch (err) {
-        console.error("❌ Login error:", err);
-        res.status(500).json({ message: "Error logging in." });
+        res.status(500).json({ message: "❌ Error logging in." });
     }
 });
 
-app.put("/update-profile/:id", upload.single("avatar"), async (req, res) => {
+// =========================== REVIEW ROUTES ===========================
+
+// Middleware to verify JWT
+const authenticate = (req, res, next) => {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ message: "❌ Unauthorized. No token provided." });
+
     try {
-        const userId = req.params.id;
-        const {
-            username,
-            email,
-            description,
-            password,
-            firstName,
-            lastName,
-            website,
-            facebook,
-            twitter
-        } = req.body;
-        
-        let updateData = {};
-
-        // Original fields
-        if (username) updateData.username = username;
-        if (email) updateData.email = email;
-        if (description) updateData.description = description;
-        if (password) {
-            updateData.password = password; // no hashing in your code
-        }
-
-        // ADDED fields
-        if (firstName) updateData.firstName = firstName;
-        if (lastName) updateData.lastName = lastName;
-        if (website) updateData.website = website;
-        if (facebook) updateData.facebook = facebook;
-        if (twitter) updateData.twitter = twitter;
-
-        // If avatar is uploaded, update avatar field
-        if (req.file) {
-            updateData.avatar = "/uploads/" + req.file.filename;
-        }
-
-        // Update user in MongoDB
-        const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
-
-        if (!updatedUser) {
-            return res.status(404).json({ message: "❌ User not found." });
-        }
-
-        res.json({ message: "✅ Profile updated successfully!", user: updatedUser });
-    } catch (error) {
-        console.error("❌ Error updating profile:", error);
-        res.status(500).json({ message: "❌ Error updating profile." });
+        const decoded = jwt.verify(token, SECRET_KEY);
+        req.user = decoded;
+        next();
+    } catch (err) {
+        return res.status(403).json({ message: "❌ Invalid token." });
     }
-});
+};
 
-app.put("/change-password/:id", async (req, res) => {
+// Add a review (with branch) - Protected Route
+app.post("/reviews", authenticate, async (req, res) => {
     try {
-        const userId = req.params.id;
-        const { oldPassword, newPassword } = req.body;
+        const { branch, rating, text } = req.body;
 
-        // Find user by ID
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "❌ User not found." });
-        }
+        const newReview = new Review({
+            userId: req.user.userId,
+            username: req.user.username,
+            branch,
+            rating,
+            text
+        });
 
-        // Check old password
-        if (user.password !== oldPassword) {
-            return res.status(401).json({ message: "❌ Old password is incorrect." });
-        }
-
-        // Update to new password (plain text, as in your existing code)
-        user.password = newPassword;
-        await user.save();
-
-        res.json({ message: "✅ Password changed successfully!" });
+        await newReview.save();
+        res.json({ message: "✅ Review added successfully!", review: newReview });
     } catch (error) {
-        console.error("❌ Error changing password:", error);
-        res.status(500).json({ message: "❌ Error changing password." });
+        res.status(500).json({ message: "❌ Error adding review." });
     }
 });
 
-// Logout Route (Logs user logout in terminal)
-app.post("/logout", (req, res) => {
-    console.log("🔴 User logged out.");
-    res.json({ message: "✅ Logout successful!" });
+// Fetch reviews by branch
+app.get("/reviews", async (req, res) => {
+    try {
+        const { branch } = req.query;
+        if (!branch) return res.status(400).json({ message: "❌ Branch parameter is required." });
+
+        const reviews = await Review.find({ branch }).populate("userId", "username email avatar");
+        res.json(reviews);
+    } catch (error) {
+        res.status(500).json({ message: "❌ Error fetching reviews." });
+    }
 });
 
+// =========================== EDIT REVIEW (PUT) ===========================
+// Only allow the owner to edit their review
+app.put("/reviews/:id", authenticate, async (req, res) => {
+    try {
+        const { text, rating } = req.body;
+        const review = await Review.findById(req.params.id);
 
+        if (!review) return res.status(404).json({ message: "❌ Review not found." });
+        if (review.userId.toString() !== req.user.userId) {
+            return res.status(403).json({ message: "❌ Unauthorized to edit this review." });
+        }
 
-// Start Server
+        review.text = text;
+        review.rating = rating;
+        await review.save();
+
+        res.json({ message: "✅ Review updated successfully!", review });
+    } catch (error) {
+        res.status(500).json({ message: "❌ Error updating review." });
+    }
+});
+
+// =========================== DELETE REVIEW (DELETE) ===========================
+// Only allow the owner to delete their review
+app.delete("/reviews/:id", authenticate, async (req, res) => {
+    try {
+        const review = await Review.findById(req.params.id);
+        if (!review) return res.status(404).json({ message: "❌ Review not found." });
+
+        if (review.userId.toString() !== req.user.userId) {
+            return res.status(403).json({ message: "❌ Unauthorized to delete this review." });
+        }
+
+        await review.deleteOne();
+        res.json({ message: "✅ Review deleted successfully!" });
+    } catch (error) {
+        res.status(500).json({ message: "❌ Error deleting review." });
+    }
+});
+
+// =========================== START SERVER ===========================
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
