@@ -24,9 +24,15 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    firstName: String,  // 🔥 Add this
+    lastName: String,   // 🔥 Add this
     description: String,
+    website: String,    // 🔥 Add this
+    facebook: String,   // 🔥 Add this
+    twitter: String,    // 🔥 Add this
     avatar: String
 });
+
 const User = mongoose.model("User", userSchema);
 
 // Review Schema
@@ -93,6 +99,92 @@ app.post("/login", async (req, res) => {
         res.status(500).json({ message: "Error logging in." });
     }
 });
+
+// Update Profile Route
+app.put("/update-profile/:id", async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const updatedFields = {
+            email: req.body.email,
+            username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            description: req.body.description,
+            website: req.body.website,
+            facebook: req.body.facebook,
+            twitter: req.body.twitter
+        };
+
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, { new: true });
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json({ message: "✅ Profile updated successfully!", user: updatedUser });
+    } catch (error) {
+        console.error("❌ Error updating profile:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+app.put("/update-avatar/:id", upload.single("avatar"), async (req, res) => {
+    try {
+        const userId = req.params.id;
+        if (!req.file) {
+            return res.status(400).json({ message: "❌ No file uploaded." });
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { avatar: "/uploads/" + req.file.filename },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "❌ User not found." });
+        }
+
+        res.json({ message: "✅ Profile picture updated!", avatar: updatedUser.avatar });
+    } catch (err) {
+        console.error("❌ Error updating profile picture:", err);
+        res.status(500).json({ message: "Error updating profile picture." });
+    }
+});
+
+async function uploadProfilePicture() {
+    const fileInput = document.getElementById("profilePicInput");
+    if (!fileInput.files.length) {
+        alert("Please select a picture to upload.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", fileInput.files[0]);
+
+    try {
+        const response = await fetch(`http://localhost:3000/update-avatar/${user._id}`, {
+            method: "PUT",
+            body: formData
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert("✅ Profile picture updated!");
+            document.getElementById("profile-picture").src = "http://localhost:3000" + data.avatar;
+            localStorage.setItem("user", JSON.stringify(data.user));
+            document.getElementById("usernameField").value = data.user.username;
+            document.getElementById("firstNameField").value = data.user.firstName;
+            document.getElementById("lastNameField").value = data.user.lastName;
+            document.getElementById("descriptionField").value = data.user.description;
+        } else {
+            alert("❌ Error: " + data.message);
+        }
+    } catch (error) {
+        alert("An error occurred while uploading the picture.");
+        console.error(error);
+    }
+}
 
 // Fetch Reviews
 app.get("/reviews", async (req, res) => {
