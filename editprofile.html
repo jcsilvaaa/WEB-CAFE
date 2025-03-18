@@ -136,6 +136,7 @@
             // If user has an avatar, display it
             if (user.avatar) {
                 document.getElementById("profile-picture").src = "http://localhost:3000" + user.avatar;
+                document.getElementById("userAvatar").src = user.avatar;
             }
 
             // ─────────────────────────────────────────────────────────────
@@ -256,32 +257,37 @@
     });
     
     document.getElementById("profilePicInput").addEventListener("change", async function () {
-        if (this.files.length > 0) {
-            const formData = new FormData();
-            formData.append("avatar", this.files[0]);
-    
-            try {
-                const user = JSON.parse(localStorage.getItem("user")); // Get logged-in user
-                const response = await fetch(`http://localhost:3000/update-avatar/${user._id}`, {
-                    method: "PUT",
-                    body: formData
-                });
-    
-                const data = await response.json();
-                if (response.ok) {
-                    alert("✅ Profile picture updated!");
-                    document.getElementById("profile-picture").src = "http://localhost:3000" + data.avatar;
-                    user.avatar = data.avatar;
-                    localStorage.setItem("user", JSON.stringify(user)); // Update local storage
-                } else {
-                    alert("❌ Error: " + data.message);
-                }
-            } catch (error) {
-                alert("An error occurred while uploading the picture.");
-                console.error(error);
+    if (this.files.length > 0) {
+        const formData = new FormData();
+        formData.append("avatar", this.files[0]);
+
+        try {
+            const user = JSON.parse(localStorage.getItem("user")); // Get logged-in user
+            const response = await fetch(`http://localhost:3000/update-avatar/${user._id}`, {
+                method: "PUT",
+                body: formData
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert("✅ Profile picture updated!");
+                const newAvatarURL = `http://localhost:3000${data.avatar}`;
+                
+                document.getElementById("profile-picture").src = newAvatarURL;
+                document.getElementById("userAvatar").src = newAvatarURL;
+
+                // Update user object in localStorage
+                user.avatar = newAvatarURL;
+                localStorage.setItem("user", JSON.stringify(user));
+            } else {
+                alert("❌ Error: " + data.message);
             }
+        } catch (error) {
+            alert("An error occurred while uploading the picture.");
+            console.error(error);
         }
-    });
+    }
+});
     </script>
 
     <footer>
