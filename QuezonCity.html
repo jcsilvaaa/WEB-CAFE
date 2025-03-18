@@ -17,11 +17,9 @@
                 <li><a href="Homepage.html">Home</a></li>
                 <li><a href="Branches.html">Cafe</a></li>
                 <li><a href="search.html">Search</a></li>
-                <!-- User Icon with Dropdown -->
                 <li class="user-menu">
                     <img id="userAvatar" src="user.jpg" alt="User Profile">
                     <ul class="dropdown" id="user-dropdown">
-                        <!-- Dropdown will be updated dynamically -->
                     </ul>
                 </li>
             </ul>
@@ -80,7 +78,6 @@
                     userAvatar.src = "user.jpg"; // Default avatar
                 }
       
-                // Populate dropdown menu
                 userDropdown.innerHTML = `
                     <li><a href="user.html">My Profile</a></li>
                     <li><a href="#" id="logout">Logout</a></li>
@@ -93,7 +90,6 @@
                     window.location.href = "logout.html";
                 });
             } else {
-                // Default dropdown for non-logged-in users
                 userDropdown.innerHTML = `
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Sign Up</a></li>

@@ -17,7 +17,6 @@
             <ul>
                 <li><a href="Homepage.html">Home</a></li>
                 <li><a href="search.html">Search</a></li>
-                <!-- User Icon with Dropdown -->
                 <li class="user-menu">
                     <a href="#" class="user-icon">
                         <img id="userAvatar" src="user.jpg" alt="User Profile">
@@ -28,7 +27,6 @@
         </nav>
     </header>
 
-    <!-- Main Content Wrapper -->
     <div class="main-content">
         <section class="branches-title">
             <h2>Cafe To Visit</h2>
@@ -87,7 +85,6 @@
         </section>
     </div> <!-- End of main-content -->
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2025 TasteCheck. All Rights Reserved.</p>
         IG:@TasteCheck | FB:TasteCheck
@@ -107,20 +104,17 @@
                     userAvatar.src = "user.jpg"; // Default avatar
                 }
 
-                // Populate dropdown menu
                 userDropdown.innerHTML = `
                     <li><a href="user.html">My Profile</a></li>
                     <li><a href="#" id="logout">Logout</a></li>
                 `;
 
-                // Logout function
                 document.getElementById("logout").addEventListener("click", function () {
                     localStorage.removeItem("user");
                     userAvatar.src = "user.jpg"; // Reset avatar
                     window.location.href = "logout.html";
                 });
             } else {
-                // Default dropdown for non-logged-in users
                 userDropdown.innerHTML = `
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Sign Up</a></li>

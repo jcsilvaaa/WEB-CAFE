@@ -45,14 +45,12 @@
             </div>
 
             <div class="tabs">
-                <!-- ACCOUNT TAB (Unchanged except for added Username field) -->
                 <div id="account" class="tab-content active">
                     <h2>Account Settings</h2>
 
                     <label>Email Address</label>
                     <input type="email" value="" id="emailField">
 
-                    <!-- NEW: Username Field -->
                     <label>Username</label>
                     <input type="text" value="YourUsername" id="usernameField">
 
@@ -74,11 +72,9 @@
                     <label>Twitter</label>
                     <input type="url" value="https://twitter.com/" id="twitterField">
 
-                    <!-- Button to update the main profile info -->
                     <button id="saveProfileBtn">Save Profile</button>
                 </div>
 
-                <!-- SECURITY TAB -->
                 <div id="security" class="tab-content">
                     <h2>Security</h2>
                     <label>Old Password</label>
@@ -90,7 +86,6 @@
                     <label>Confirm New Password</label>
                     <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
 
-                    <!-- Button to change the password -->
                     <button id="changePasswordBtn">Change Password</button>
                 </div>
             </div>
@@ -98,9 +93,6 @@
     </div>
     
     <script>
-        // ─────────────────────────────────────────────────────────────────
-        // TAB SWITCHING (Unchanged)
-        // ─────────────────────────────────────────────────────────────────
         function openTab(event, tabId) {
             var tabcontent = document.getElementsByClassName("tab-content");
             for (var i = 0; i < tabcontent.length; i++) {
@@ -112,9 +104,6 @@
             alert("Change Profile Picture functionality here.");
         }
 
-        // ─────────────────────────────────────────────────────────────────
-        // ON PAGE LOAD
-        // ─────────────────────────────────────────────────────────────────
         document.addEventListener("DOMContentLoaded", function () {
             const user = JSON.parse(localStorage.getItem("user"));
             if (!user || !user._id) {
@@ -123,7 +112,6 @@
                 return;
             }
 
-            // Pre-fill Account tab fields from localStorage user
             document.getElementById("emailField").value = user.email || "";
             document.getElementById("usernameField").value = user.username || "";
             document.getElementById("firstNameField").value = user.firstName || "";
@@ -139,9 +127,6 @@
                 document.getElementById("userAvatar").src = user.avatar;
             }
 
-            // ─────────────────────────────────────────────────────────────
-            // SAVE PROFILE BUTTON: Calls /update-profile/:id
-            // ─────────────────────────────────────────────────────────────
             document.getElementById("saveProfileBtn").addEventListener("click", async function () {
                 // Gather updated fields
                 const updatedData = {
@@ -176,9 +161,6 @@
                 }
             });
 
-            // ─────────────────────────────────────────────────────────────
-            // CHANGE PASSWORD BUTTON: Calls /change-password/:id
-            // ─────────────────────────────────────────────────────────────
             document.getElementById("changePasswordBtn").addEventListener("click", async function () {
                 const oldPassword = document.getElementById("oldPassword").value;
                 const newPassword = document.getElementById("newPassword").value;
@@ -200,7 +182,6 @@
                     const data = await response.json();
                     if (response.ok) {
                         alert("✅ Password changed successfully!");
-                        // Optionally clear fields
                         document.getElementById("oldPassword").value = "";
                         document.getElementById("newPassword").value = "";
                         document.getElementById("confirmNewPassword").value = "";
@@ -229,7 +210,6 @@
                     userAvatar.src = "user.jpg"; // Default avatar
                 }
       
-                // Populate dropdown menu
                 userDropdown.innerHTML = `
                     <li><a href="user.html">My Profile</a></li>
                     <li><a href="#" id="logout">Logout</a></li>
@@ -242,7 +222,6 @@
                     window.location.href = "logout.html";
                 });
             } else {
-                // Default dropdown for non-logged-in users
                 userDropdown.innerHTML = `
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Sign Up</a></li>

@@ -17,11 +17,9 @@
                 <li><a href="Homepage.html">Home</a></li>
                 <li><a href="Branches.html">Cafe</a></li>
                 <li><a href="search.html">Search</a></li>
-                <!-- User Icon with Dropdown -->
                 <li class="user-menu">
                     <img id="userAvatar" src="user.jpg" alt="User Profile">
                     <ul class="dropdown" id="user-dropdown">
-                        <!-- Dropdown will be updated dynamically -->
                     </ul>
                 </li>
             </ul>
@@ -73,20 +71,17 @@
                     userAvatar.src = "user.jpg"; // Default avatar
                 }
       
-                // Populate dropdown menu
                 userDropdown.innerHTML = `
                     <li><a href="user.html">My Profile</a></li>
                     <li><a href="#" id="logout">Logout</a></li>
                 `;
       
-                // Logout function
                 document.getElementById("logout").addEventListener("click", function () {
                     localStorage.removeItem("user");
                     userAvatar.src = "user.jpg"; // Reset avatar
                     window.location.href = "logout.html";
                 });
             } else {
-                // Default dropdown for non-logged-in users
                 userDropdown.innerHTML = `
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Sign Up</a></li>
@@ -122,7 +117,6 @@
 <script>
   const loggedInUser = JSON.parse(localStorage.getItem("user")) || null;
 
-// Load reviews on page load
 async function loadReviews() {
   try {
       const response = await fetch("http://localhost:3000/reviews");
@@ -138,7 +132,6 @@ async function loadReviews() {
   }
 }
 
-// Add review to the DOM
 function addReviewToDOM(reviewId, username, text, rating, date, userId) {
   const reviewList = document.querySelector(".review-list");
   const newReview = document.createElement("div");

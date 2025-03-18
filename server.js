@@ -8,11 +8,10 @@ const bcrypt = require("bcrypt");
 const app = express();
 const PORT = 3000;
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use("/uploads", express.static("uploads")); // Serve uploaded files
+app.use("/uploads", express.static("uploads")); 
 
 // MongoDB Connection
 mongoose.connect("mongodb://localhost:27017/webcafe", { useNewUrlParser: true, useUnifiedTopology: true })
@@ -24,12 +23,12 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    firstName: String,  // 🔥 Add this
-    lastName: String,   // 🔥 Add this
+    firstName: String,  
+    lastName: String,   
     description: String,
-    website: String,    // 🔥 Add this
-    facebook: String,   // 🔥 Add this
-    twitter: String,    // 🔥 Add this
+    website: String,    
+    facebook: String,   
+    twitter: String,  
     avatar: String
 });
 
