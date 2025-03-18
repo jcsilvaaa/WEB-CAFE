@@ -24,12 +24,12 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    firstName: String,  
-    lastName: String,   
+    firstName: String,  // 🔥 Add this
+    lastName: String,   // 🔥 Add this
     description: String,
-    website: String,    
-    facebook: String,   
-    twitter: String,    
+    website: String,    // 🔥 Add this
+    facebook: String,   // 🔥 Add this
+    twitter: String,    // 🔥 Add this
     avatar: String
 });
 
