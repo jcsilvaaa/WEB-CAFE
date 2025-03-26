@@ -151,44 +151,10 @@ app.put("/update-avatar/:id", upload.single("avatar"), async (req, res) => {
     }
 });
 
-async function uploadProfilePicture() {
-    const fileInput = document.getElementById("profilePicInput");
-    if (!fileInput.files.length) {
-        alert("Please select a picture to upload.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("avatar", fileInput.files[0]);
-
+// ✅ Fetch Reviews by Branch
+app.get("/reviews/:branch", async (req, res) => {
     try {
-        const response = await fetch(`http://localhost:3000/update-avatar/${user._id}`, {
-            method: "PUT",
-            body: formData
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            alert("✅ Profile picture updated!");
-            document.getElementById("profile-picture").src = "http://localhost:3000" + data.avatar;
-            localStorage.setItem("user", JSON.stringify(data.user));
-            document.getElementById("usernameField").value = data.user.username;
-            document.getElementById("firstNameField").value = data.user.firstName;
-            document.getElementById("lastNameField").value = data.user.lastName;
-            document.getElementById("descriptionField").value = data.user.description;
-        } else {
-            alert("❌ Error: " + data.message);
-        }
-    } catch (error) {
-        alert("An error occurred while uploading the picture.");
-        console.error(error);
-    }
-}
-
-// Fetch Reviews
-app.get("/reviews", async (req, res) => {
-    try {
-        const { branch } = req.query;
+        const { branch } = req.params;
         const reviews = await Review.find({ branch }).sort({ date: -1 });
         res.json(reviews);
     } catch (err) {
@@ -196,23 +162,28 @@ app.get("/reviews", async (req, res) => {
     }
 });
 
-// Post Review
-app.post("/reviews", async (req, res) => {
+// ✅ Post Review with Branch Handling
+app.post("/reviews/:branch", async (req, res) => {
     try {
-        const { userId, username, branch, rating, text } = req.body;
+        const { branch } = req.params; 
+        const { userId, username, rating, text } = req.body;
+
         const newReview = new Review({ userId, username, branch, rating, text });
         await newReview.save();
+
         res.json({ message: "✅ Review added!", review: newReview });
     } catch (err) {
         res.status(500).json({ message: "Error submitting review." });
     }
 });
 
-// Edit Review
-app.put("/reviews/:id", async (req, res) => {
+// ✅ Edit Review by Branch
+app.put("/reviews/:branch/:id", async (req, res) => {
     try {
+        const { id } = req.params;
         const { text, rating } = req.body;
-        const updatedReview = await Review.findByIdAndUpdate(req.params.id, { text, rating }, { new: true });
+
+        const updatedReview = await Review.findByIdAndUpdate(id, { text, rating }, { new: true });
 
         if (!updatedReview) {
             return res.status(404).json({ message: "❌ Review not found." });
@@ -224,10 +195,12 @@ app.put("/reviews/:id", async (req, res) => {
     }
 });
 
-// Delete Review
-app.delete("/reviews/:id", async (req, res) => {
+// ✅ Delete Review by Branch
+app.delete("/reviews/:branch/:id", async (req, res) => {
     try {
-        const deletedReview = await Review.findByIdAndDelete(req.params.id);
+        const { id } = req.params;
+
+        const deletedReview = await Review.findByIdAndDelete(id);
 
         if (!deletedReview) {
             return res.status(404).json({ message: "❌ Review not found." });
