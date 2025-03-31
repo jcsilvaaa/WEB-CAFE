@@ -54,33 +54,52 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Register Route
+// Register Route with Password Hashing
 app.post("/register", upload.single("avatar"), async (req, res) => {
     try {
         const { username, email, password, description } = req.body;
         const avatar = req.file ? "/uploads/" + req.file.filename : null;
 
+        // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "❌ Email already registered." });
         }
 
-        const newUser = new User({ username, email, password, description, avatar });
+        // Hash the password before storing it
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // Create and save the user with the hashed password
+        const newUser = new User({ 
+            username, 
+            email, 
+            password: hashedPassword, 
+            description, 
+            avatar 
+        });
         await newUser.save();
 
         res.json({ message: "✅ User registered successfully!" });
     } catch (err) {
+        console.error("❌ Error registering user:", err);
         res.status(500).json({ message: "Error registering user." });
     }
 });
 
-// Login Route
 app.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
 
-        if (!user || user.password !== password) {
+        if (!user) {
+            return res.status(401).json({ message: "❌ Invalid email or password." });
+        }
+
+        // Check if password is hashed or plaintext
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch && user.password !== password) { // Check plaintext match
             return res.status(401).json({ message: "❌ Invalid email or password." });
         }
 
