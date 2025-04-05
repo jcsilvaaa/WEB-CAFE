@@ -54,52 +54,33 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Register Route with Password Hashing
+// Register Route
 app.post("/register", upload.single("avatar"), async (req, res) => {
     try {
         const { username, email, password, description } = req.body;
         const avatar = req.file ? "/uploads/" + req.file.filename : null;
 
-        // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "❌ Email already registered." });
         }
 
-        // Hash the password before storing it
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-        // Create and save the user with the hashed password
-        const newUser = new User({ 
-            username, 
-            email, 
-            password: hashedPassword, 
-            description, 
-            avatar 
-        });
+        const newUser = new User({ username, email, password, description, avatar });
         await newUser.save();
 
         res.json({ message: "✅ User registered successfully!" });
     } catch (err) {
-        console.error("❌ Error registering user:", err);
         res.status(500).json({ message: "Error registering user." });
     }
 });
 
+// Login Route
 app.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
 
-        if (!user) {
-            return res.status(401).json({ message: "❌ Invalid email or password." });
-        }
-
-        // Check if password is hashed or plaintext
-        const isMatch = await bcrypt.compare(password, user.password);
-
-        if (!isMatch && user.password !== password) { // Check plaintext match
+        if (!user || user.password !== password) {
             return res.status(401).json({ message: "❌ Invalid email or password." });
         }
 
@@ -167,35 +148,6 @@ app.put("/update-avatar/:id", upload.single("avatar"), async (req, res) => {
     } catch (err) {
         console.error("❌ Error updating profile picture:", err);
         res.status(500).json({ message: "Error updating profile picture." });
-    }
-});
-
-// ✅ Change Password Route
-app.put("/change-password/:id", async (req, res) => {
-    try {
-        const userId = req.params.id;
-        const { oldPassword, newPassword } = req.body;
-        
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "❌ User not found." });
-        }
-        
-        
-        const isMatch = await bcrypt.compare(oldPassword, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ message: "❌ Old password is incorrect." });
-        }
-        
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-        user.password = hashedPassword;
-        await user.save();
-        
-        res.json({ message: "✅ Password changed successfully!" });
-    } catch (error) {
-        console.error("❌ Error changing password:", error);
-        res.status(500).json({ message: "❌ Error changing password." });
     }
 });
 
