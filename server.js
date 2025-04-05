@@ -13,6 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/uploads", express.static("uploads")); 
 
+// Serve homepage.html for the root route
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'Homepage.html'));
+});
+
 // MongoDB Connection
 mongoose.connect("mongodb://localhost:27017/webcafe", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("✅ Connected to MongoDB"))
